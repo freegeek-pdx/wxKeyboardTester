@@ -1,5 +1,16 @@
 #!/usr/bin/perl -w
 
+BEGIN {
+    eval("require Wx;");
+    if($@) {
+	die("Requires Wx perl module (from CPAN or libwx-perl package)");
+    }
+    eval("require XML::Mini::Document;");
+    if($@) {
+	die("Requires XML::Mini::Document perl module (from CPAN or libxml-mini-perl package)");
+    }
+}
+
 package MyWindow;
 
 use Wx qw(wxDefaultSize wxDefaultValidator wxID_ANY);
@@ -41,12 +52,16 @@ sub OnClose {
 
 package main;
 
+use Wx qw(wxDefaultSize wxDefaultValidator wxID_ANY);
+if(!Wx::KeyEvent->new(0)->can('GetRawKeyCode')) {
+    die("Needs wxperl from pkg-perl SVN or wxperl SVN");
+}
+
 use strict;
 
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
-use Wx qw(wxDefaultSize wxDefaultValidator wxID_ANY);
 use Wx::Event qw(EVT_KEY_DOWN EVT_CLOSE EVT_LEFT_DOWN);
 
 use XML::Mini::Document;
@@ -78,7 +93,7 @@ sub mystrip {
     return $str;
 }
 
-use Data::Dumper;
+#use Data::Dumper;
 
 my $app = Wx::SimpleApp->new;
 EVT_KEY_DOWN($app, \&main::keydown);
