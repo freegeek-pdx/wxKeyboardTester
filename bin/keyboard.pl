@@ -14,9 +14,15 @@ sub colour_from_setting {
 sub new {
     my( $class, $label ) = @_;
     my $this = $class->SUPER::new( undef, -1, "", [-1, -1], [250, 110] );
-    my $button = Wx::Button->new($this, wxID_ANY, "foo");
-    $button->SetFocus();
-    $button->SetBackgroundColour(colour_from_setting('unpressed_color'));
+    my $i = 0;
+    foreach(keys %main::keys) {
+	my $hash = $main::keys{$_};
+	my $button = Wx::Button->new($this, wxID_ANY, $hash->{'display'}, [0, $i]);
+	$i += 50;
+	$button->SetFocus();
+	$button->SetBackgroundColour(colour_from_setting('unpressed_color'));
+	$main::buttons{$hash->{'code'}} = $button;
+    }
     EVT_CLOSE( $this, \&OnClose );
     return $this;
 }
@@ -40,14 +46,16 @@ use XML::Mini::Document;
 sub keydown {
     my($this, $event) = @_;
     my $code = $event->GetRawKeyCode();
-    print "$code\n";
+    if($main::buttons{$code}) {
+	$main::buttons{$code}->SetBackgroundColour(MyWindow::colour_from_setting('pressed_color'));
+    }
 }
 
 sub load_xml {
     my $xmlDoc = XML::Mini::Document->new();
-    open my $F, File::Spec->catfile($FindBin::Bin, "..", "data", shift() . ".xml");
-    my $XMLString = join '', <$F>;
-    $xmlDoc->parse($XMLString);
+    my $basename = pop();
+    my $f = File::Spec->catfile($FindBin::Bin, "..", "data", @_, $basename . ".xml");
+    $xmlDoc->fromFile($f);
     my $xmlHash = $xmlDoc->toHash();
     return $xmlHash;
 }
@@ -69,6 +77,12 @@ our %settings = ();
 foreach(@{$xmlHash->{settings}->{setting}}) {
     $settings{$_->{'name'}} = $_;
 };
+our %keys = ();
+my $keyboard = load_xml("keyboards", "ryan52");
+foreach(@{$keyboard->{keys}->{key}}) {
+    $keys{$_->{'code'}} = $_;
+};
+our %buttons = ();
 # print Dumper($xmlHash) . "\n";
 my $dialog = MyWindow->new();
 $dialog->Show;
