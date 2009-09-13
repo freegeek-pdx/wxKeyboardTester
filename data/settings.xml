@@ -1,0 +1,12 @@
+<settings>
+<setting name="unpressed_color">
+  <r>255</r>
+  <g>0</g>
+  <b>0</b>
+</setting>
+<setting name="pressed_color">
+  <r>0</r>
+  <g>255</g>
+  <b>0</b>
+</setting>
+</settings>
