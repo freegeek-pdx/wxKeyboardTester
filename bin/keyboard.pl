@@ -22,6 +22,11 @@ sub new {
 	$button->SetFocus();
 	$button->SetBackgroundColour(colour_from_setting('unpressed_color'));
 	$main::buttons{$hash->{'code'}} = $button;
+	my $multiplier = 1;
+	if($hash->{'width'}) {
+	    $multiplier = $hash->{'width'};
+	}
+	$button->SetSize(Wx::Size->new($main::width * $multiplier, $main::height));
     }
     EVT_CLOSE( $this, \&OnClose );
     return $this;
@@ -39,6 +44,7 @@ use strict;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
+use Wx qw(wxDefaultSize wxDefaultValidator wxID_ANY);
 use Wx::Event qw(EVT_KEY_DOWN EVT_CLOSE EVT_LEFT_DOWN);
 
 use XML::Mini::Document;
@@ -83,6 +89,11 @@ foreach(@{$keyboard->{keys}->{key}}) {
     $keys{$_->{'code'}} = $_;
 };
 our %buttons = ();
+
+my $size = Wx::Button::GetDefaultSize; # wxDefaultSize
+our $height = $size->GetHeight(); # TODO: get from settings
+our $width = $size->GetWidth() / 2.0; # TODO: get from settings
+
 # print Dumper($xmlHash) . "\n";
 my $dialog = MyWindow->new();
 $dialog->Show;
