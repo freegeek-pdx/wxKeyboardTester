@@ -18,7 +18,7 @@ sub new {
     foreach(keys %main::keys) {
 	my $hash = $main::keys{$_};
 	my $button = Wx::Button->new($this, wxID_ANY, $hash->{'display'}, [0, $i]);
-	$i += 50;
+	$i += $main::height;
 	$button->SetFocus();
 	$button->SetBackgroundColour(colour_from_setting('unpressed_color'));
 	$main::buttons{$hash->{'code'}} = $button;
