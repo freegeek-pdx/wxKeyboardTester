@@ -14,11 +14,11 @@ sub colour_from_setting {
 sub new {
     my( $class, $label ) = @_;
     my $this = $class->SUPER::new( undef, -1, "", [-1, -1], [250, 110] );
-    my $i = 0;
-    foreach(keys %main::keys) {
-	my $hash = $main::keys{$_};
-	my $button = Wx::Button->new($this, wxID_ANY, $hash->{'display'}, [0, $i]);
-	$i += $main::height;
+    my %width_hash = ();
+    foreach(@main::keys) {
+	my $hash = $_;
+	$width_hash{$hash->{'row'}} ||= 0;
+	my $button = Wx::Button->new($this, wxID_ANY, $hash->{'display'}, [$width_hash{$hash->{'row'}}, $hash->{'row'} * $main::height]);
 	$button->SetFocus();
 	$button->SetBackgroundColour(colour_from_setting('unpressed_color'));
 	$main::buttons{$hash->{'code'}} = $button;
@@ -26,6 +26,7 @@ sub new {
 	if($hash->{'width'}) {
 	    $multiplier = $hash->{'width'};
 	}
+	$width_hash{$hash->{'row'}} += $main::width * $multiplier;
 	$button->SetSize(Wx::Size->new($main::width * $multiplier, $main::height));
     }
     EVT_CLOSE( $this, \&OnClose );
@@ -83,11 +84,8 @@ our %settings = ();
 foreach(@{$xmlHash->{settings}->{setting}}) {
     $settings{$_->{'name'}} = $_;
 };
-our %keys = ();
 my $keyboard = load_xml("keyboards", "ryan52");
-foreach(@{$keyboard->{keys}->{key}}) {
-    $keys{$_->{'code'}} = $_;
-};
+our @keys = @{$keyboard->{keys}->{key}};
 our %buttons = ();
 
 my $size = Wx::Button::GetDefaultSize; # wxDefaultSize
