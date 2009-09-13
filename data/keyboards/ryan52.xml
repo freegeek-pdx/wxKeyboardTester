@@ -13,6 +13,18 @@
     <skip>8</skip>
   </key>
   <key>
+    <code>65300</code>
+    <name>scroll_lock</name>
+    <display>ScrLk</display>
+    <row>1</row>
+  </key>
+  <key>
+    <code>65299</code>
+    <name>pause</name>
+    <display>Pause</display>
+    <row>1</row>
+  </key>
+  <key>
     <code>97</code>
     <name>a</name>
     <display>A</display>
