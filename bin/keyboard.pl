@@ -18,6 +18,7 @@ sub new {
     foreach(@main::keys) {
 	my $hash = $_;
 	$width_hash{$hash->{'row'}} ||= 0;
+	$width_hash{$hash->{'row'}} += $main::width * $hash->{'skip'} if($hash->{'skip'});
 	my $button = Wx::Button->new($this, wxID_ANY, $hash->{'display'}, [$width_hash{$hash->{'row'}}, ($hash->{'row'} - 1) * $main::height]);
 	$button->SetFocus();
 	$button->SetBackgroundColour(colour_from_setting('unpressed_color'));
