@@ -55,6 +55,8 @@ sub keydown {
     my $code = $event->GetRawKeyCode();
     if($main::buttons{$code}) {
 	$main::buttons{$code}->SetBackgroundColour(MyWindow::colour_from_setting('pressed_color'));
+    } else {
+	print "Unknown keycode: " . $code . "\n";
     }
 }
 
