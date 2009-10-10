@@ -115,10 +115,10 @@ sub start {
 }
 
 sub Restart {
+    @main::found_keycodes = ();
     MyWindow->start();
 }
 
-# TODO: perhaps this should not trigger restart. not sure yet. for now it does.
 sub Settings {
     MyDialog->start();
 }
@@ -176,6 +176,9 @@ sub new {
 	$button->SetSize(Wx::Size->new($main::width * $multiplier, $main::height));
     }
     EVT_CLOSE( $this, \&OnClose );
+    foreach(@main::found_keycodes) {
+	main::process_code($_);
+    }
     $this->Show;
     $this->ShowFullScreen(1);
     return $this;
@@ -204,6 +207,12 @@ use XML::Mini::Document;
 sub keydown {
     my($this, $event) = @_;
     my $code = $event->GetRawKeyCode();
+    process_code($code);
+    push @main::found_keycodes, $code unless(grep {$_ == $code} @main::found_keycodes);
+}
+
+sub process_code {
+    my $code = shift;
     if($main::buttons{$code}) {
 	$main::buttons{$code}->SetBackgroundColour(MyWindow::colour_from_setting('pressed_color'));
 	$main::buttons{$code}->SetForegroundColour(MyWindow::colour_from_setting('pressed_text'));
@@ -250,6 +259,8 @@ sub mystrip {
 }
 
 #use Data::Dumper;
+
+our @found_keycodes = ();
 
 our %buttons = ();
 our %settings;
