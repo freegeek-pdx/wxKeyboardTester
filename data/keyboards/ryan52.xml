@@ -350,12 +350,33 @@
     <row>4</row>
   </key>
   <key>
+    <code>65429</code>
+    <alias>65463</alias>
+    <name>num_7</name>
+    <display>7</display>
+    <row>4</row>
+    <skip>.5</skip>
+  </key>
+  <key>
+    <code>65431</code>
+    <alias>65464</alias>
+    <name>num_8</name>
+    <display>8</display>
+    <row>4</row>
+  </key>
+  <key>
+    <code>65434</code>
+    <alias>65465</alias>
+    <name>num_9</name>
+    <display>9</display>
+    <row>4</row>
+  </key>
+  <key>
     <code>65451</code>
     <name>num_plus</name>
     <display>+</display>
     <height>2</height>
     <row>4</row>
-    <skip>3.5</skip><!-- TODO: remove me -->
   </key>
   <key>
     <code>65509</code>
@@ -449,6 +470,28 @@
     <width>2</width>
   </key>
   <key>
+    <code>65430</code>
+    <alias>65460</alias>
+    <name>num_4</name>
+    <display>4</display>
+    <row>5</row>
+    <skip>4</skip>
+  </key>
+  <key>
+    <code>65437</code>
+    <alias>65461</alias>
+    <name>num_5</name>
+    <display>5</display>
+    <row>5</row>
+  </key>
+  <key>
+    <code>65432</code>
+    <alias>65462</alias>
+    <name>num_6</name>
+    <display>6</display>
+    <row>5</row>
+  </key>
+  <key>
     <code>65505</code>
     <name>left_shift</name>
     <display>Shift</display>
@@ -523,6 +566,42 @@
     <width>2.5</width>
   </key>
   <key>
+    <code>65362</code>
+    <name>up_arrow</name>
+    <display>&#8593;</display>
+    <row>6</row>
+    <skip>1.5</skip>
+  </key>
+  <key>
+    <code>65436</code>
+    <alias>65457</alias>
+    <name>num_1</name>
+    <display>1</display>
+    <row>6</row>
+    <skip>1.5</skip>
+  </key>
+  <key>
+    <code>65433</code>
+    <alias>65458</alias>
+    <name>num_2</name>
+    <display>2</display>
+    <row>6</row>
+  </key>
+  <key>
+    <code>65435</code>
+    <alias>65459</alias>
+    <name>num_3</name>
+    <display>3</display>
+    <row>6</row>
+  </key>
+  <key>
+    <code>65421</code>
+    <name>num_enter</name>
+    <display>Enter</display>
+    <height>2</height>
+    <row>6</row>
+  </key>
+  <key>
     <code>65507</code>
     <name>left_ctrl</name>
     <display>Ctrl</display>
@@ -579,13 +658,6 @@
     <row>7</row>
   </key>
   <key>
-    <code>65362</code>
-    <name>up_arrow</name>
-    <display>&#8593;</display>
-    <row>6</row>
-    <skip>1.5</skip>
-  </key>
-  <key>
     <code>65364</code>
     <name>down_arrow</name>
     <display>&#8595;</display>
@@ -597,4 +669,20 @@
     <display>&#8594;</display>
     <row>7</row>
   </key>
+  <key>
+    <code>65438</code>
+    <alias>65456</alias>
+    <name>num_0</name>
+    <display>0</display>
+    <row>7</row>
+    <width>2</width>
+    <skip>0.5</skip>
+  </key>
+ <key>
+    <code>65439</code>
+    <alias>65454</alias>
+    <name>num_period</name>
+    <display>.</display>
+    <row>7</row>
+   </key>
 </keys>
