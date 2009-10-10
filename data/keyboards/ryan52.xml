@@ -320,4 +320,30 @@
     <display>/</display>
     <row>6</row>
   </key>
+  <key>
+    <code>65361</code>
+    <skip>1</skip>
+    <name>left_arrow</name>
+    <display>&#8592;</display>
+    <row>7</row>
+  </key>
+  <key>
+    <code>65362</code>
+    <skip>5</skip>
+    <name>up_arrow</name>
+    <display>&#8593;</display>
+    <row>6</row>
+  </key>
+  <key>
+    <code>65364</code>
+    <name>down_arrow</name>
+    <display>&#8595;</display>
+    <row>7</row>
+  </key>
+  <key>
+    <code>65363</code>
+    <name>right_arrow</name>
+    <display>&#8594;</display>
+    <row>7</row>
+  </key>
 </keys>
