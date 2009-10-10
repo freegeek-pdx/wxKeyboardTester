@@ -111,12 +111,13 @@ sub mystrip {
 
 my $app = Wx::SimpleApp->new;
 EVT_KEY_DOWN($app, \&main::keydown);
-my $xmlHash = load_xml("profiles", "green_and_red");
+my $settings_hash = load_xml("settings");
+my $xmlHash = load_xml("profiles", $settings_hash->{'profile'});
 our %settings = ();
 foreach(@{$xmlHash->{settings}->{setting}}) {
     $settings{$_->{'name'}} = $_;
 };
-my $keyboard = load_xml("keyboards", "ryan52");
+my $keyboard = load_xml("keyboards", $settings_hash->{'keyboard'});
 our @keys = @{$keyboard->{keys}->{key}};
 our %buttons = ();
 
