@@ -203,8 +203,19 @@
     <name>insert</name>
     <display>Insert</display>
     <row>3</row>
-    <width>1</width>
     <skip>0.5</skip>
+  </key>
+  <key>
+    <code>65360</code>
+    <name>home</name>
+    <display>Home</display>
+    <row>3</row>
+  </key>
+  <key>
+    <code>65365</code>
+    <name>page_up</name>
+    <display>PgUp</display>
+    <row>3</row>
   </key>
   <key>
     <code>65289</code>
@@ -292,6 +303,25 @@
     <alias>124</alias>
     <name>backslash</name>
     <display>\\</display>
+    <row>4</row>
+  </key>
+  <key>
+    <code>65535</code>
+    <name>delete</name>
+    <display>Delete</display>
+    <row>4</row>
+    <skip>0.5</skip>
+  </key>
+  <key>
+    <code>65367</code>
+    <name>end</name>
+    <display>End</display>
+    <row>4</row>
+  </key>
+  <key>
+    <code>65366</code>
+    <name>page_down</name>
+    <display>PgDn</display>
     <row>4</row>
   </key>
   <key>
@@ -520,7 +550,7 @@
     <name>up_arrow</name>
     <display>&#8593;</display>
     <row>6</row>
-    <skip>2</skip>
+    <skip>1.5</skip>
   </key>
   <key>
     <code>65364</code>
