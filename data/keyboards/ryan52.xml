@@ -11,6 +11,7 @@
     <name>f1</name>
     <display>F1</display>
     <row>1</row>
+    <skip>0.25</skip>
   </key>
   <key>
     <code>65471</code>
@@ -35,6 +36,7 @@
     <name>f5</name>
     <display>F5</display>
     <row>1</row>
+    <skip>0.25</skip>
   </key>
   <key>
     <code>65475</code>
@@ -59,6 +61,7 @@
     <name>f9</name>
     <display>F9</display>
     <row>1</row>
+    <skip>0.25</skip>
   </key>
   <key>
     <code>65479</code>
@@ -83,7 +86,7 @@
     <name>print_screen</name>
     <display>PrtSc</display>
     <row>1</row>
-    <skip>1</skip>
+    <skip>1.25</skip>
   </key>
   <key>
     <code>65300</code>
@@ -96,6 +99,13 @@
     <name>pause</name>
     <display>Pause</display>
     <row>1</row>
+  </key>
+  <key>
+    <code>96</code>
+    <alias>126</alias>
+    <name>tilde</name>
+    <display>~</display>
+    <row>3</row>
   </key>
   <key>
     <code>49</code>
@@ -168,6 +178,42 @@
     <row>3</row>
   </key>
   <key>
+    <code>45</code>
+    <alias>95</alias>
+    <name>minus</name>
+    <display>-</display>
+    <row>3</row>
+  </key>
+  <key>
+    <code>61</code>
+    <alias>43</alias>
+    <name>plus</name>
+    <display>+</display>
+    <row>3</row>
+  </key>
+  <key>
+    <code>65288</code>
+    <name>backspace</name>
+    <display>Backspace</display>
+    <row>3</row>
+    <width>1.5</width>
+  </key>
+  <key>
+    <code>65379</code>
+    <name>insert</name>
+    <display>Insert</display>
+    <row>3</row>
+    <width>1</width>
+    <skip>0.5</skip>
+  </key>
+  <key>
+    <code>65289</code>
+    <name>tab</name>
+    <display>Tab</display>
+    <row>4</row>
+    <width>1.5</width>
+  </key>
+  <key>
     <code>113</code>
     <name>q</name>
     <display>Q</display>
@@ -226,6 +272,34 @@
     <name>p</name>
     <display>P</display>
     <row>4</row>
+  </key>
+  <key>
+    <code>91</code>
+    <alias>123</alias>
+    <name>left_bracket</name>
+    <display>{</display>
+    <row>4</row>
+  </key>
+  <key>
+    <code>93</code>
+    <alias>125</alias>
+    <name>right_bracket</name>
+    <display>}</display>
+    <row>4</row>
+  </key>
+  <key>
+    <code>92</code>
+    <alias>124</alias>
+    <name>backslash</name>
+    <display>\</display>
+    <row>4</row>
+  </key>
+  <key>
+    <code>65509</code>
+    <name>caps_lock</name>
+    <display>Caps Lock</display>
+    <row>5</row>
+    <width>1.5</width>
   </key>
   <key>
     <code>97</code>
@@ -312,6 +386,13 @@
     <width>2</width>
   </key>
   <key>
+    <code>65505</code>
+    <name>left_shift</name>
+    <display>Shift</display>
+    <row>6</row>
+    <width>2</width>
+  </key>
+  <key>
     <code>122</code>
     <name>z</name>
     <display>Z</display>
@@ -372,6 +453,13 @@
     <row>6</row>
   </key>
   <key>
+    <code>65506</code>
+    <name>right_shift</name>
+    <display>Shift</display>
+    <row>6</row>
+    <width>2.5</width>
+  </key>
+  <key>
     <code>65507</code>
     <name>left_ctrl</name>
     <display>Ctrl</display>
@@ -379,7 +467,7 @@
   </key>
   <key>
     <code>65515</code>
-    <name>winkey</name>
+    <name>left_winkey</name>
     <display>Win</display>
     <row>7</row>
   </key>
@@ -393,13 +481,19 @@
     <code>32</code>
     <name>space</name>
     <display>Space</display>
-    <width>7</width>
+    <width>7.5</width>
     <row>7</row>
   </key>
   <key>
     <code>65514</code>
-    <name>left_alt</name>
+    <name>right_alt</name>
     <display>Alt</display>
+    <row>7</row>
+  </key>
+  <key>
+    <code>65516</code>
+    <name>right_winkey</name>
+    <display>Win</display>
     <row>7</row>
   </key>
   <key>
@@ -416,17 +510,17 @@
   </key>
   <key>
     <code>65361</code>
-    <skip>1</skip>
+    <skip>0.5</skip>
     <name>left_arrow</name>
     <display>&#8592;</display>
     <row>7</row>
   </key>
   <key>
     <code>65362</code>
-    <skip>5</skip>
     <name>up_arrow</name>
     <display>&#8593;</display>
     <row>6</row>
+    <skip>2</skip>
   </key>
   <key>
     <code>65364</code>
