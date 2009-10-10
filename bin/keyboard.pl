@@ -77,7 +77,7 @@ sub start {
 }
 
 sub save_settings {
-    open my $F, ">", main::xml_file("settings");
+    open my $F, ">", $main::user_settings_file;
     print $F "<profile>" . $main::default_profile . "</profile>\n";
     print $F "<keyboard>" . $main::default_keyboard . "</keyboard>\n";
     close $F;
@@ -230,7 +230,8 @@ sub xml_file {
 
 sub load_xml {
     my $xmlDoc = XML::Mini::Document->new();
-    my $f = xml_file(@_);
+    my $f = join '', @_;
+    $f = xml_file(@_) unless $f =~ /\//;
     $xmlDoc->fromFile($f);
     my $xmlHash = $xmlDoc->toHash();
     return $xmlHash;
@@ -272,9 +273,10 @@ our ($mainwindow);
 
 our $profiles = find_choices("profiles");
 our $keyboards = find_choices("keyboards");
+our $user_settings_file = $ENV{HOME} . "/.wxKeyboardTester.xml";
 my $settings_hash = {};
 eval {
-    $settings_hash = load_xml("settings");
+    $settings_hash = load_xml($user_settings_file);
 };
 our $default_profile = $settings_hash->{'profile'};
 our $default_keyboard = $settings_hash->{'keyboard'};
