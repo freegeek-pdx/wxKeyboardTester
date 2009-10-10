@@ -98,7 +98,7 @@ sub OnClose {
 package MyWindow;
 
 use Wx qw(wxDefaultSize wxDefaultValidator wxID_ANY);
-use Wx::Event qw(EVT_KEY_DOWN EVT_CLOSE EVT_LEFT_DOWN);
+use Wx::Event qw(EVT_KEY_DOWN EVT_CLOSE EVT_LEFT_DOWN EVT_BUTTON);
 
 use base 'Wx::Frame';
 sub colour_from_setting {
@@ -112,6 +112,24 @@ sub start {
 	$main::mainwindow->Destroy();
     }
     $main::mainwindow = $class->new();
+}
+
+sub Restart {
+    MyWindow->start();
+}
+
+# TODO: perhaps this should not trigger restart. not sure yet. for now it does.
+sub Settings {
+    MyDialog->start();
+}
+
+sub reverse_hash {
+    my $hash = shift;
+    my $newhash = {};
+    foreach(keys %{$hash}) {
+	$newhash->{$hash->{$_}} = $_;
+    }
+    return $newhash;
 }
 
 sub new {
@@ -131,17 +149,26 @@ sub new {
     $main::width = $main::settings{'width'}->{'-content'};
     my %width_hash = ();
     %main::buttons = ();
+    my $restart_button = Wx::Button->new($this, wxID_ANY, "Restart", [0, 0]);
+    EVT_BUTTON($restart_button, wxID_ANY, \&Restart);
+    my $settings_button = Wx::Button->new($this, wxID_ANY, "Settings", [100, 0]);
+    EVT_BUTTON($settings_button, wxID_ANY, \&Settings);
+    my $quit_button = Wx::Button->new($this, wxID_ANY, "Quit", [200, 0]);
+    EVT_BUTTON($quit_button, wxID_ANY, sub {$this->OnClose;});
+    my $text_keyboard;
+    my $text_profile;
+    Wx::StaticText->new($this, wxID_ANY, "Current Keyboard Layout: " . reverse_hash($main::keyboards)->{$main::default_keyboard} . "\nCurrent Display Profile: " . reverse_hash($main::profiles)->{$main::default_profile}, [300, 0], wxDefaultSize, 0, "");
     foreach(@main::keys) {
 	my $hash = $_;
 	$width_hash{$hash->{'row'}} ||= 0;
 	$width_hash{$hash->{'row'}} += $main::width * $hash->{'skip'} if($hash->{'skip'});
-	my $button = Wx::Button->new($this, wxID_ANY, $hash->{'display'}, [$width_hash{$hash->{'row'}}, ($hash->{'row'} - 1) * $main::height]);
+	my $button = Wx::Button->new($this, wxID_ANY, $hash->{'display'}, [$width_hash{$hash->{'row'}}, (($hash->{'row'} - 1) * $main::height) + 50]);
 	$button->SetFocus();
 	$button->SetBackgroundColour(colour_from_setting('unpressed_color'));
 	$button->SetForegroundColour(colour_from_setting('unpressed_text'));
 	$main::buttons{$hash->{'code'}} = $button;
 	$main::buttons{$hash->{'alias'}} = $button if($hash->{'alias'}); # TODO: this should be better but works for now
-	my $multiplier = 1;
+	my $multiplier = 1; # TODO: perhaps this should die or become a setting, should investigate usefulness
 	if($hash->{'width'}) {
 	    $multiplier = $hash->{'width'};
 	}
@@ -238,6 +265,6 @@ our $default_keyboard = $settings_hash->{'keyboard'};
 
 my $app = Wx::SimpleApp->new;
 EVT_KEY_DOWN($app, \&main::keydown);
-MyDialog->start();
+MyWindow->start();
 $app->MainLoop;
 
