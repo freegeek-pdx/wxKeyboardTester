@@ -9,6 +9,10 @@ BEGIN {
     if($@) {
 	die("Requires XML::Mini::Document perl module (from CPAN or libxml-mini-perl package)");
     }
+    eval("require File::Find::Rule;");
+    if($@) {
+	die("Requires File::Find::Rule perl module (from CPAN or libfile-find-rule-perl package)");
+    }
 }
 
 use CGI;
@@ -90,13 +94,33 @@ sub keydown {
     }
 }
 
-sub load_xml {
-    my $xmlDoc = XML::Mini::Document->new();
+sub xml_file {
     my $basename = pop();
     my $f = File::Spec->catfile($FindBin::Bin, "..", "data", @_, $basename . ".xml");
+}
+
+sub load_xml {
+    my $xmlDoc = XML::Mini::Document->new();
+    my $f = xml_file(@_);
     $xmlDoc->fromFile($f);
     my $xmlHash = $xmlDoc->toHash();
     return $xmlHash;
+}
+
+use File::Find::Rule;
+
+sub find_choices {
+  my @list = @_;
+  my @files = File::Find::Rule->file()
+    ->name( '*.xml' )
+    ->in( File::Spec->catfile($FindBin::Bin, "..", "data", @_) );
+  @files = map {s/^.*\/(.*)\.xml$/$1/; $_} @files;
+  my $hash = {};
+  foreach(@files) {
+      my $title = load_xml(@list, $_)->{'title'};
+      $hash->{$title} = $_;
+  }
+  return $hash;
 }
 
 sub mystrip {
@@ -109,17 +133,31 @@ sub mystrip {
 
 #use Data::Dumper;
 
+our %buttons = ();
+
+my $profiles = find_choices("profiles");
+my $keyboards = find_choices("keyboards");
+my $settings_hash = load_xml("settings");
+my $default_profile = $settings_hash->{'profile'};
+my $default_keyboard = $settings_hash->{'keyboard'};
+
 my $app = Wx::SimpleApp->new;
 EVT_KEY_DOWN($app, \&main::keydown);
-my $settings_hash = load_xml("settings");
-my $xmlHash = load_xml("profiles", $settings_hash->{'profile'});
+
+# TODO: right here prompt the user with a list of all of the keys of $profiles and $keyboards, then find the values of their choices in the hash and set $default_
+
+open my $F, ">", xml_file("settings");
+print $F "<profile>" . $default_profile . "</profile>\n";
+print $F "<keyboard>" . $default_keyboard . "</keyboard>\n";
+close $F;
+
+my $xmlHash = load_xml("profiles", $default_profile);
 our %settings = ();
 foreach(@{$xmlHash->{settings}->{setting}}) {
     $settings{$_->{'name'}} = $_;
 };
-my $keyboard = load_xml("keyboards", $settings_hash->{'keyboard'});
+my $keyboard = load_xml("keyboards", $default_keyboard);
 our @keys = @{$keyboard->{keys}->{key}};
-our %buttons = ();
 
 my $size = Wx::Button::GetDefaultSize; # wxDefaultSize
 our $height = $size->GetHeight(); # TODO: get from settings
