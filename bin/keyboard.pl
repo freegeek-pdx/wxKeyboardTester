@@ -174,8 +174,12 @@ sub new {
 	if($hash->{'width'}) {
 	    $multiplier = $hash->{'width'};
 	}
+	my $v_multiplier = 1; # TODO: this does screw up the width counts, but this doesn't actually matter because all of the long keys are luckily on the far right.
+	if($hash->{'height'}) {
+	    $v_multiplier = $hash->{'height'};
+	}
 	$width_hash{$hash->{'row'}} += $main::width * $multiplier;
-	$button->SetSize(Wx::Size->new($main::width * $multiplier, $main::height));
+	$button->SetSize(Wx::Size->new($main::width * $multiplier, $main::height * $v_multiplier));
     }
     EVT_CLOSE( $this, \&OnClose );
     foreach(@main::found_keycodes) {
