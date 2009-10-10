@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 
 BEGIN {
-    eval("use Wx 0.93;");
+    eval("use Wx 0.92;"); # TODO: switch this back to 0.93
     if($@) {
 	die("Requires Wx perl module (latest from CPAN or Debian Sid)");
     }
@@ -63,7 +63,17 @@ sub new {
     my $button = Wx::Button->new($this, wxID_ANY, "OK", [0, 440]);
     EVT_BUTTON($button, wxID_ANY, sub { OnButton($this); });
     EVT_CLOSE( $this, \&OnClose );
+    $this->Show;
+    $this->ShowFullScreen(1);
     return $this;
+}
+
+sub start {
+    my $class = shift;
+    if($main::mainwindow) {
+	$main::mainwindow->Destroy();
+    }
+    $main::mainwindow = $class->new();
 }
 
 sub OnButton {
@@ -76,23 +86,7 @@ sub OnButton {
     print $F "<keyboard>" . $main::default_keyboard . "</keyboard>\n";
     close $F;
 
-    my $xmlHash = main::load_xml("profiles", $main::default_profile);
-    foreach(@{$xmlHash->{settings}->{setting}}) {
-	$main::settings{$_->{'name'}} = $_;
-    };
-    my $keyboard = main::load_xml("keyboards", $main::default_keyboard);
-    @main::keys = @{$keyboard->{keys}->{key}};
-
-#    my $size = Wx::Button::GetDefaultSize;
-#    $main::height = $size->GetHeight();
-#    $main::width = $size->GetWidth() / 2.0;
-    $main::height = $main::settings{'height'}->{'-content'};
-    $main::width = $main::settings{'width'}->{'-content'};
-    print $main::height . " " . $main::width . "\n";
-
-    my $dialog = MyWindow->new();
-    $dialog->Show;
-    $dialog->ShowFullScreen(1);
+    MyWindow->start();
     $this->Destroy;
 }
 
@@ -112,10 +106,31 @@ sub colour_from_setting {
     return Wx::Colour->new($main::settings{$name}->{'r'}, $main::settings{$name}->{'g'}, $main::settings{$name}->{'b'});
 }
 
+sub start {
+    my $class = shift;
+    if($main::mainwindow) {
+	$main::mainwindow->Destroy();
+    }
+    $main::mainwindow = $class->new();
+}
+
 sub new {
     my( $class, $label ) = @_;
     my $this = $class->SUPER::new( undef, -1, "", [-1, -1], [250, 110] );
+    my $xmlHash = main::load_xml("profiles", $main::default_profile);
+    foreach(@{$xmlHash->{settings}->{setting}}) {
+	$main::settings{$_->{'name'}} = $_;
+    };
+    my $keyboard = main::load_xml("keyboards", $main::default_keyboard);
+    @main::keys = @{$keyboard->{keys}->{key}};
+
+#    my $size = Wx::Button::GetDefaultSize;
+#    $main::height = $size->GetHeight();
+#    $main::width = $size->GetWidth() / 2.0;
+    $main::height = $main::settings{'height'}->{'-content'};
+    $main::width = $main::settings{'width'}->{'-content'};
     my %width_hash = ();
+    %main::buttons = ();
     foreach(@main::keys) {
 	my $hash = $_;
 	$width_hash{$hash->{'row'}} ||= 0;
@@ -134,6 +149,8 @@ sub new {
 	$button->SetSize(Wx::Size->new($main::width * $multiplier, $main::height));
     }
     EVT_CLOSE( $this, \&OnClose );
+    $this->Show;
+    $this->ShowFullScreen(1);
     return $this;
 }
 
@@ -211,6 +228,7 @@ our %buttons = ();
 our %settings;
 our @keys;
 our ($width, $height);
+our ($mainwindow);
 
 our $profiles = find_choices("profiles");
 our $keyboards = find_choices("keyboards");
@@ -220,8 +238,6 @@ our $default_keyboard = $settings_hash->{'keyboard'};
 
 my $app = Wx::SimpleApp->new;
 EVT_KEY_DOWN($app, \&main::keydown);
-my $dialog = MyDialog->new();
-$dialog->Show;
-$dialog->ShowFullScreen(1);
+MyDialog->start();
 $app->MainLoop;
 
