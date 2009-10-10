@@ -168,7 +168,7 @@ sub new {
 	$button->SetForegroundColour(colour_from_setting('unpressed_text'));
 	$main::buttons{$hash->{'code'}} = $button;
 	$main::buttons{$hash->{'alias'}} = $button if($hash->{'alias'}); # TODO: this should be better but works for now
-	my $multiplier = 1; # TODO: perhaps this should die or become a setting, should investigate usefulness
+	my $multiplier = 1;
 	if($hash->{'width'}) {
 	    $multiplier = $hash->{'width'};
 	}
