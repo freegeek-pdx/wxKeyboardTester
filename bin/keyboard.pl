@@ -54,7 +54,6 @@ sub new {
 	$i_profiles = $i if($main::profiles->{$_} eq $main::default_profile);
 	$i += 1;
     }
-    print $i_keyboards . " " . $i_profiles . "\n";
     Wx::StaticText->new($this, wxID_ANY, "Display Profiles:", wxDefaultPosition, wxDefaultSize, 0, "");
     $this->{'myjunk'}->{'profiles'} = Wx::ListBox->new($this, wxID_ANY, [0, 20], [300, 200], \@profiles, 0, wxDefaultValidator, "");
     Wx::StaticText->new($this, wxID_ANY, "Keyboard Layouts:", [0, 220], wxDefaultSize, 0, "");
@@ -84,9 +83,12 @@ sub OnButton {
     my $keyboard = main::load_xml("keyboards", $main::default_keyboard);
     @main::keys = @{$keyboard->{keys}->{key}};
 
-    my $size = Wx::Button::GetDefaultSize; # wxDefaultSize
-    $main::height = $size->GetHeight(); # TODO: get from settings
-    $main::width = $size->GetWidth() / 2.0; # TODO: get from settings
+#    my $size = Wx::Button::GetDefaultSize;
+#    $main::height = $size->GetHeight();
+#    $main::width = $size->GetWidth() / 2.0;
+    $main::height = $main::settings{'height'}->{'-content'};
+    $main::width = $main::settings{'width'}->{'-content'};
+    print $main::height . " " . $main::width . "\n";
 
     my $dialog = MyWindow->new();
     $dialog->Show;

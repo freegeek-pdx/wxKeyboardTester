@@ -20,4 +20,10 @@
   <g>255</g>
   <b>255</b>
 </setting>
+<setting name="height">
+  30
+</setting>
+<setting name="width">
+  42.5
+</setting>
 </settings>
