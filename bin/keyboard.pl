@@ -125,4 +125,5 @@ our $width = $size->GetWidth() / 2.0; # TODO: get from settings
 # print Dumper($xmlHash) . "\n";
 my $dialog = MyWindow->new();
 $dialog->Show;
+$dialog->ShowFullScreen(1);
 $app->MainLoop;
