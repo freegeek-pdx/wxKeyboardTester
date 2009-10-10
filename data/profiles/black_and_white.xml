@@ -1,22 +1,22 @@
 <settings>
 <setting name="unpressed_color">
   <r>255</r>
-  <g>0</g>
-  <b>0</b>
+  <g>255</g>
+  <b>255</b>
 </setting>
 <setting name="pressed_color">
   <r>0</r>
-  <g>255</g>
+  <g>0</g>
   <b>0</b>
 </setting>
 <setting name="unpressed_text">
   <r>0</r>
   <g>0</g>
-  <b>255</b>
+  <b>0</b>
 </setting>
 <setting name="pressed_text">
-  <r>0</r>
-  <g>0</g>
-  <b>0</b>
+  <r>255</r>
+  <g>255</g>
+  <b>255</b>
 </setting>
 </settings>

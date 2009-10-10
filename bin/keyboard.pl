@@ -111,7 +111,7 @@ sub mystrip {
 
 my $app = Wx::SimpleApp->new;
 EVT_KEY_DOWN($app, \&main::keydown);
-my $xmlHash = load_xml("settings");
+my $xmlHash = load_xml("profiles", "green_and_red");
 our %settings = ();
 foreach(@{$xmlHash->{settings}->{setting}}) {
     $settings{$_->{'name'}} = $_;
