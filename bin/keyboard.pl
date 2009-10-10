@@ -76,16 +76,18 @@ sub start {
     $main::mainwindow = $class->new();
 }
 
-sub OnButton {
-    my $this = shift;
-    $main::default_profile = $main::profiles->{$this->{'myjunk'}->{'profiles'}->GetStringSelection()};
-    $main::default_keyboard = $main::keyboards->{$this->{'myjunk'}->{'keyboards'}->GetStringSelection()};
-
+sub save_settings {
     open my $F, ">", main::xml_file("settings");
     print $F "<profile>" . $main::default_profile . "</profile>\n";
     print $F "<keyboard>" . $main::default_keyboard . "</keyboard>\n";
     close $F;
+}
 
+sub OnButton {
+    my $this = shift;
+    $main::default_profile = $main::profiles->{$this->{'myjunk'}->{'profiles'}->GetStringSelection()};
+    $main::default_keyboard = $main::keyboards->{$this->{'myjunk'}->{'keyboards'}->GetStringSelection()};
+    save_settings();
     MyWindow->start();
     $this->Destroy;
 }
@@ -270,9 +272,15 @@ our ($mainwindow);
 
 our $profiles = find_choices("profiles");
 our $keyboards = find_choices("keyboards");
-my $settings_hash = load_xml("settings");
+my $settings_hash = {};
+eval {
+    $settings_hash = load_xml("settings");
+};
 our $default_profile = $settings_hash->{'profile'};
 our $default_keyboard = $settings_hash->{'keyboard'};
+grep {$default_profile eq $_} @{[values(%{$profiles})]} or $default_profile = @{[values(%{$profiles})]}[0];
+grep {$default_keyboard eq $_} @{[values(%{$keyboards})]} or $default_keyboard = @{[values(%{$keyboards})]}[0];
+MyDialog::save_settings();
 
 my $app = Wx::SimpleApp->new;
 EVT_KEY_DOWN($app, \&main::keydown);
