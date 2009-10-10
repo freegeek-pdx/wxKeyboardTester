@@ -1,4 +1,4 @@
-<title>Ryan52's keyboard layout</title>
+<title>apple keyboard layout</title>
 <keys>
   <key>
     <code>65307</code>
@@ -79,25 +79,6 @@
     <code>65481</code>
     <name>f12</name>
     <display>F12</display>
-    <row>1</row>
-  </key>
-  <key>
-    <code>65377</code>
-    <name>print_screen</name>
-    <display>PrtSc</display>
-    <row>1</row>
-    <skip>1.25</skip>
-  </key>
-  <key>
-    <code>65300</code>
-    <name>scroll_lock</name>
-    <display>ScrLk</display>
-    <row>1</row>
-  </key>
-  <key>
-    <code>65299</code>
-    <name>pause</name>
-    <display>Pause</display>
     <row>1</row>
   </key>
   <key>
@@ -225,6 +206,12 @@
     <skip>0.5</skip>
   </key>
   <key>
+    <code>65469</code>
+    <name>num_equals</name>
+    <display>=</display>
+    <row>3</row>
+  </key>
+  <key>
     <code>65455</code>
     <name>num_slash</name>
     <display>/</display>
@@ -234,12 +221,6 @@
     <code>65450</code>
     <name>num_star</name>
     <display>*</display>
-    <row>3</row>
-  </key>
-  <key>
-    <code>65453</code>
-    <name>num_minus</name>
-    <display>-</display>
     <row>3</row>
   </key>
   <key>
@@ -382,10 +363,9 @@
     <row>4</row>
   </key>
   <key>
-    <code>65451</code>
-    <name>num_plus</name>
-    <display>+</display>
-    <height>2</height>
+    <code>65453</code>
+    <name>num_minus</name>
+    <display>-</display>
     <row>4</row>
   </key>
   <key>
@@ -499,6 +479,12 @@
     <alias>65462</alias>
     <name>num_6</name>
     <display>6</display>
+    <row>5</row>
+  </key>
+  <key>
+    <code>65451</code>
+    <name>num_plus</name>
+    <display>+</display>
     <row>5</row>
   </key>
   <key>
@@ -624,50 +610,44 @@
   <key>
     <code>65507</code>
     <name>left_ctrl</name>
-    <display>Ctrl</display>
-    <row>7</row>
-  </key>
-  <key>
-    <code>65515</code>
-    <name>left_winkey</name>
-    <display>Win</display>
+    <display>Control</display>
     <row>7</row>
   </key>
   <key>
     <code>65513</code>
     <name>left_alt</name>
-    <display>Alt</display>
+    <display>Option</display>
+    <row>7</row>
+  </key>
+  <key>
+    <code>65515</code>
+    <name>left_winkey</name>
+    <display>Apple</display>
     <row>7</row>
   </key>
   <key>
     <code>32</code>
     <name>space</name>
     <display>Space</display>
-    <width>7.5</width>
-    <row>7</row>
-  </key>
-  <key>
-    <code>65514</code>
-    <name>right_alt</name>
-    <display>Alt</display>
+    <width>8.5</width>
     <row>7</row>
   </key>
   <key>
     <code>65516</code>
     <name>right_winkey</name>
-    <display>Win</display>
+    <display>Apple</display>
     <row>7</row>
   </key>
   <key>
-    <code>65383</code>
-    <name>menu</name>
-    <display>Menu</display>
+    <code>65514</code>
+    <name>right_alt</name>
+    <display>Option</display>
     <row>7</row>
   </key>
   <key>
     <code>65508</code>
     <name>right_ctrl</name>
-    <display>Ctrl</display>
+    <display>Control</display>
     <row>7</row>
   </key>
   <key>
