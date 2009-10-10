@@ -225,5 +225,3 @@ $dialog->Show;
 $dialog->ShowFullScreen(1);
 $app->MainLoop;
 
-# TODO: right here prompt the user with a list of all of the keys of $profiles and $keyboards, then find the values of their choices in the hash and set $default_
-
