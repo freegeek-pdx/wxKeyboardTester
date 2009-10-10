@@ -46,6 +46,7 @@ sub new {
 	$button->SetFocus();
 	$button->SetBackgroundColour(colour_from_setting('unpressed_color'));
 	$main::buttons{$hash->{'code'}} = $button;
+	$main::buttons{$hash->{'alias'}} = $button if($hash->{'alias'}); # TODO: this should be better but works for now
 	my $multiplier = 1;
 	if($hash->{'width'}) {
 	    $multiplier = $hash->{'width'};
