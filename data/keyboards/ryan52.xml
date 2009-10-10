@@ -251,60 +251,70 @@
   </key>
   <key>
     <code>113</code>
+    <alias>81</alias>
     <name>q</name>
     <display>Q</display>
     <row>4</row>
   </key>
   <key>
     <code>119</code>
+    <alias>87</alias>
     <name>w</name>
     <display>W</display>
     <row>4</row>
   </key>
   <key>
     <code>101</code>
+    <alias>69</alias>
     <name>e</name>
     <display>E</display>
     <row>4</row>
   </key>
   <key>
     <code>114</code>
+    <alias>82</alias>
     <name>r</name>
     <display>R</display>
     <row>4</row>
   </key>
   <key>
     <code>116</code>
+    <alias>84</alias>
     <name>t</name>
     <display>T</display>
     <row>4</row>
   </key>
   <key>
     <code>121</code>
+    <alias>89</alias>
     <name>y</name>
     <display>Y</display>
     <row>4</row>
   </key>
   <key>
     <code>117</code>
+    <alias>85</alias>
     <name>u</name>
     <display>U</display>
     <row>4</row>
   </key>
   <key>
     <code>105</code>
+    <alias>73</alias>
     <name>i</name>
     <display>I</display>
     <row>4</row>
   </key>
   <key>
     <code>111</code>
+    <alias>79</alias>
     <name>o</name>
     <display>O</display>
     <row>4</row>
   </key>
   <key>
     <code>112</code>
+    <alias>80</alias>
     <name>p</name>
     <display>P</display>
     <row>4</row>
@@ -500,60 +510,70 @@
   </key>
   <key>
     <code>122</code>
+    <alias>90</alias>
     <name>z</name>
     <display>Z</display>
     <row>6</row>
   </key>
   <key>
     <code>120</code>
+    <alias>88</alias>
     <name>x</name>
     <display>X</display>
     <row>6</row>
   </key>
   <key>
     <code>99</code>
+    <alias>67</alias>
     <name>c</name>
     <display>C</display>
     <row>6</row>
   </key>
   <key>
     <code>118</code>
+    <alias>86</alias>
     <name>v</name>
     <display>V</display>
     <row>6</row>
   </key>
   <key>
     <code>98</code>
+    <alias>66</alias>
     <name>b</name>
     <display>B</display>
     <row>6</row>
   </key>
   <key>
     <code>110</code>
+    <alias>78</alias>
     <name>n</name>
     <display>N</display>
     <row>6</row>
   </key>
   <key>
     <code>109</code>
+    <alias>77</alias>
     <name>m</name>
     <display>M</display>
     <row>6</row>
   </key>
   <key>
     <code>44</code>
+    <alias>60</alias>
     <name>,</name>
     <display>,</display>
     <row>6</row>
   </key>
   <key>
     <code>46</code>
+    <alias>62</alias>
     <name>.</name>
     <display>.</display>
     <row>6</row>
   </key>
   <key>
     <code>47</code>
+    <alias>63</alias>
     <name>/</name>
     <display>/</display>
     <row>6</row>
