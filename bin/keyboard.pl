@@ -217,7 +217,7 @@ sub process_code {
 	$main::buttons{$code}->SetBackgroundColour(MyWindow::colour_from_setting('pressed_color'));
 	$main::buttons{$code}->SetForegroundColour(MyWindow::colour_from_setting('pressed_text'));
     } else {
-	print "Unknown keycode: " . $code . "\n";
+	print "Unknown keycode: " . $code . "\n"; # TODO: remove this
     }
 }
 
