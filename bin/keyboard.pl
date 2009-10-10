@@ -29,14 +29,39 @@ use CGI;
 
 package MyDialog;
 
-use Wx qw(wxDefaultSize wxDefaultValidator wxID_ANY);
+use Wx qw(wxDefaultSize wxDefaultValidator wxID_ANY wxDefaultPosition);
 use Wx::Event qw(EVT_KEY_DOWN EVT_CLOSE EVT_LEFT_DOWN EVT_BUTTON);
 
 use base 'Wx::Frame';
 sub new {
     my( $class, $label ) = @_;
     my $this = $class->SUPER::new( undef, -1, "", [-1, -1], [250, 110] );
-    my $button = Wx::Button->new($this, wxID_ANY, "OK");
+    $this->{'myjunk'} = {};
+    my @profiles = ();
+    my @keyboards = ();
+    my $i;
+    my $i_keyboards;
+    my $i_profiles;
+    $i = 0;
+    foreach(@{[keys(%{$main::keyboards})]}){
+	push @keyboards, $_;
+	$i_keyboards = $i if($main::keyboards->{$_} eq $main::default_keyboard);
+	$i += 1;
+    }
+    $i = 0;
+    foreach(@{[keys(%{$main::profiles})]}){
+	push @profiles, $_;
+	$i_profiles = $i if($main::profiles->{$_} eq $main::default_profile);
+	$i += 1;
+    }
+    print $i_keyboards . " " . $i_profiles . "\n";
+    Wx::StaticText->new($this, wxID_ANY, "Display Profiles:", wxDefaultPosition, wxDefaultSize, 0, "");
+    $this->{'myjunk'}->{'profiles'} = Wx::ListBox->new($this, wxID_ANY, [0, 20], [300, 200], \@profiles, 0, wxDefaultValidator, "");
+    Wx::StaticText->new($this, wxID_ANY, "Keyboard Layouts:", [0, 220], wxDefaultSize, 0, "");
+    $this->{'myjunk'}->{'keyboards'} = Wx::ListBox->new($this, wxID_ANY, [0, 240], [300, 200], \@keyboards, 0, wxDefaultValidator, "");
+    $this->{'myjunk'}->{'profiles'}->SetSelection($i_profiles);
+    $this->{'myjunk'}->{'keyboards'}->SetSelection($i_keyboards);
+    my $button = Wx::Button->new($this, wxID_ANY, "OK", [0, 440]);
     EVT_BUTTON($button, wxID_ANY, sub { OnButton($this); });
     EVT_CLOSE( $this, \&OnClose );
     return $this;
@@ -44,6 +69,9 @@ sub new {
 
 sub OnButton {
     my $this = shift;
+    $main::default_profile = $main::profiles->{$this->{'myjunk'}->{'profiles'}->GetStringSelection()};
+    $main::default_keyboard = $main::keyboards->{$this->{'myjunk'}->{'keyboards'}->GetStringSelection()};
+
     open my $F, ">", main::xml_file("settings");
     print $F "<profile>" . $main::default_profile . "</profile>\n";
     print $F "<keyboard>" . $main::default_keyboard . "</keyboard>\n";
