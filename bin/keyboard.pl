@@ -27,6 +27,50 @@ use CGI;
     return $toencode;
 };
 
+package MyDialog;
+
+use Wx qw(wxDefaultSize wxDefaultValidator wxID_ANY);
+use Wx::Event qw(EVT_KEY_DOWN EVT_CLOSE EVT_LEFT_DOWN EVT_BUTTON);
+
+use base 'Wx::Frame';
+sub new {
+    my( $class, $label ) = @_;
+    my $this = $class->SUPER::new( undef, -1, "", [-1, -1], [250, 110] );
+    my $button = Wx::Button->new($this, wxID_ANY, "OK");
+    EVT_BUTTON($button, wxID_ANY, sub { OnButton($this); });
+    EVT_CLOSE( $this, \&OnClose );
+    return $this;
+}
+
+sub OnButton {
+    my $this = shift;
+    open my $F, ">", main::xml_file("settings");
+    print $F "<profile>" . $main::default_profile . "</profile>\n";
+    print $F "<keyboard>" . $main::default_keyboard . "</keyboard>\n";
+    close $F;
+
+    my $xmlHash = main::load_xml("profiles", $main::default_profile);
+    foreach(@{$xmlHash->{settings}->{setting}}) {
+	$main::settings{$_->{'name'}} = $_;
+    };
+    my $keyboard = main::load_xml("keyboards", $main::default_keyboard);
+    @main::keys = @{$keyboard->{keys}->{key}};
+
+    my $size = Wx::Button::GetDefaultSize; # wxDefaultSize
+    $main::height = $size->GetHeight(); # TODO: get from settings
+    $main::width = $size->GetWidth() / 2.0; # TODO: get from settings
+
+    my $dialog = MyWindow->new();
+    $dialog->Show;
+    $dialog->ShowFullScreen(1);
+    $this->Destroy;
+}
+
+sub OnClose {
+    my( $this, $event ) = @_;
+    $this->Destroy;
+}
+
 package MyWindow;
 
 use Wx qw(wxDefaultSize wxDefaultValidator wxID_ANY);
@@ -134,37 +178,22 @@ sub mystrip {
 #use Data::Dumper;
 
 our %buttons = ();
+our %settings;
+our @keys;
+our ($width, $height);
 
-my $profiles = find_choices("profiles");
-my $keyboards = find_choices("keyboards");
+our $profiles = find_choices("profiles");
+our $keyboards = find_choices("keyboards");
 my $settings_hash = load_xml("settings");
-my $default_profile = $settings_hash->{'profile'};
-my $default_keyboard = $settings_hash->{'keyboard'};
+our $default_profile = $settings_hash->{'profile'};
+our $default_keyboard = $settings_hash->{'keyboard'};
 
 my $app = Wx::SimpleApp->new;
 EVT_KEY_DOWN($app, \&main::keydown);
-
-# TODO: right here prompt the user with a list of all of the keys of $profiles and $keyboards, then find the values of their choices in the hash and set $default_
-
-open my $F, ">", xml_file("settings");
-print $F "<profile>" . $default_profile . "</profile>\n";
-print $F "<keyboard>" . $default_keyboard . "</keyboard>\n";
-close $F;
-
-my $xmlHash = load_xml("profiles", $default_profile);
-our %settings = ();
-foreach(@{$xmlHash->{settings}->{setting}}) {
-    $settings{$_->{'name'}} = $_;
-};
-my $keyboard = load_xml("keyboards", $default_keyboard);
-our @keys = @{$keyboard->{keys}->{key}};
-
-my $size = Wx::Button::GetDefaultSize; # wxDefaultSize
-our $height = $size->GetHeight(); # TODO: get from settings
-our $width = $size->GetWidth() / 2.0; # TODO: get from settings
-
-# print Dumper($xmlHash) . "\n";
-my $dialog = MyWindow->new();
+my $dialog = MyDialog->new();
 $dialog->Show;
 $dialog->ShowFullScreen(1);
 $app->MainLoop;
+
+# TODO: right here prompt the user with a list of all of the keys of $profiles and $keyboards, then find the values of their choices in the hash and set $default_
+
