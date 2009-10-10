@@ -45,6 +45,7 @@ sub new {
 	my $button = Wx::Button->new($this, wxID_ANY, $hash->{'display'}, [$width_hash{$hash->{'row'}}, ($hash->{'row'} - 1) * $main::height]);
 	$button->SetFocus();
 	$button->SetBackgroundColour(colour_from_setting('unpressed_color'));
+	$button->SetForegroundColour(colour_from_setting('unpressed_text'));
 	$main::buttons{$hash->{'code'}} = $button;
 	$main::buttons{$hash->{'alias'}} = $button if($hash->{'alias'}); # TODO: this should be better but works for now
 	my $multiplier = 1;
@@ -83,6 +84,7 @@ sub keydown {
     my $code = $event->GetRawKeyCode();
     if($main::buttons{$code}) {
 	$main::buttons{$code}->SetBackgroundColour(MyWindow::colour_from_setting('pressed_color'));
+	$main::buttons{$code}->SetForegroundColour(MyWindow::colour_from_setting('pressed_text'));
     } else {
 	print "Unknown keycode: " . $code . "\n";
     }
