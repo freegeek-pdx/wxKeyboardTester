@@ -218,6 +218,31 @@
     <row>3</row>
   </key>
   <key>
+    <code>65407</code>
+    <name>num_lock</name>
+    <display>Num Lock</display>
+    <row>3</row>
+    <skip>0.5</skip>
+  </key>
+  <key>
+    <code>65455</code>
+    <name>num_slash</name>
+    <display>/</display>
+    <row>3</row>
+  </key>
+  <key>
+    <code>65450</code>
+    <name>num_star</name>
+    <display>*</display>
+    <row>3</row>
+  </key>
+  <key>
+    <code>65453</code>
+    <name>num_minus</name>
+    <display>-</display>
+    <row>3</row>
+  </key>
+  <key>
     <code>65289</code>
     <name>tab</name>
     <display>Tab</display>
@@ -323,6 +348,14 @@
     <name>page_down</name>
     <display>PgDn</display>
     <row>4</row>
+  </key>
+  <key>
+    <code>65451</code>
+    <name>num_plus</name>
+    <display>+</display>
+    <height>2</height>
+    <row>4</row>
+    <skip>3.5</skip><!-- TODO: remove me -->
   </key>
   <key>
     <code>65509</code>
