@@ -11,17 +11,15 @@ BEGIN {
     }
 }
 
+use CGI;
+
 *XML::Mini::escapeEntities = sub {
     my $class = shift;
     my $toencode = shift;
     
     return undef unless (defined $toencode);
-    
-    $toencode=~s/&quot;/\"/g;
-    $toencode=~s/&gt;/>/g;
-    $toencode=~s/&lt;/</g;
-    $toencode=~s/&amp;/&/g;
-#    $toencode=~s/([\xA0-\xFF])/"&#".ord($1).";"/ge; # TODO
+
+    $toencode = CGI::unescapeHTML($toencode);
     return $toencode;
 };
 
