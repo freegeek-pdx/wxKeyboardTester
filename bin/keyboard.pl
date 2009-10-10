@@ -1,9 +1,9 @@
 #!/usr/bin/perl -w
 
 BEGIN {
-    eval("require Wx;");
+    eval("use Wx 0.93;");
     if($@) {
-	die("Requires Wx perl module (from CPAN or libwx-perl package)");
+	die("Requires Wx perl module (latest from CPAN or Debian Sid)");
     }
     eval("require XML::Mini::Document;");
     if($@) {
@@ -53,9 +53,6 @@ sub OnClose {
 package main;
 
 use Wx qw(wxDefaultSize wxDefaultValidator wxID_ANY);
-if(!Wx::KeyEvent->new(0)->can('GetRawKeyCode')) {
-    die("Needs wxperl from pkg-perl SVN or wxperl SVN");
-}
 
 use strict;
 
