@@ -11,6 +11,20 @@ BEGIN {
     }
 }
 
+*XML::Mini::escapeEntities = sub {
+    my $class = shift;
+    my $toencode = shift;
+    
+    return undef unless (defined $toencode);
+    
+    $toencode=~s/&quot;/\"/g;
+    $toencode=~s/&gt;/>/g;
+    $toencode=~s/&lt;/</g;
+    $toencode=~s/&amp;/&/g;
+#    $toencode=~s/([\xA0-\xFF])/"&#".ord($1).";"/ge; # TODO
+    return $toencode;
+};
+
 package MyWindow;
 
 use Wx qw(wxDefaultSize wxDefaultValidator wxID_ANY);
@@ -62,6 +76,8 @@ use lib "$FindBin::Bin/../lib";
 use Wx::Event qw(EVT_KEY_DOWN EVT_CLOSE EVT_LEFT_DOWN);
 
 use XML::Mini::Document;
+
+#$XML::Mini::AutoEscapeEntities = 0;
 
 sub keydown {
     my($this, $event) = @_;
