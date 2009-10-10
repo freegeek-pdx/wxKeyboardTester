@@ -7,11 +7,83 @@
     <row>1</row>
   </key>
   <key>
+    <code>65470</code>
+    <name>f1</name>
+    <display>F1</display>
+    <row>1</row>
+  </key>
+  <key>
+    <code>65471</code>
+    <name>f2</name>
+    <display>F2</display>
+    <row>1</row>
+  </key>
+  <key>
+    <code>65472</code>
+    <name>f3</name>
+    <display>F3</display>
+    <row>1</row>
+  </key>
+  <key>
+    <code>65473</code>
+    <name>f4</name>
+    <display>F4</display>
+    <row>1</row>
+  </key>
+  <key>
+    <code>65474</code>
+    <name>f5</name>
+    <display>F5</display>
+    <row>1</row>
+  </key>
+  <key>
+    <code>65475</code>
+    <name>f6</name>
+    <display>F6</display>
+    <row>1</row>
+  </key>
+  <key>
+    <code>65476</code>
+    <name>f7</name>
+    <display>F7</display>
+    <row>1</row>
+  </key>
+  <key>
+    <code>65477</code>
+    <name>f8</name>
+    <display>F8</display>
+    <row>1</row>
+  </key>
+  <key>
+    <code>65478</code>
+    <name>f9</name>
+    <display>F9</display>
+    <row>1</row>
+  </key>
+  <key>
+    <code>65479</code>
+    <name>f10</name>
+    <display>F10</display>
+    <row>1</row>
+  </key>
+  <key>
+    <code>65480</code>
+    <name>f11</name>
+    <display>F11</display>
+    <row>1</row>
+  </key>
+  <key>
+    <code>65481</code>
+    <name>f12</name>
+    <display>F12</display>
+    <row>1</row>
+  </key>
+  <key>
     <code>65377</code>
     <name>print_screen</name>
     <display>PrtSc</display>
     <row>1</row>
-    <skip>8</skip>
+    <skip>1</skip>
   </key>
   <key>
     <code>65300</code>
