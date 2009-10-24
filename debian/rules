@@ -1,0 +1,10 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_install:
+	mkdir -p debian/$(shell dh_listpackages)/usr/bin/
+	mkdir -p debian/$(shell dh_listpackages)/usr/share/
+	cp -a ./bin/keyboard.pl debian/$(shell dh_listpackages)/usr/bin/
+	cp -a ./data/ debian/$(shell dh_listpackages)/usr/share/wx-keyboard-tester/
