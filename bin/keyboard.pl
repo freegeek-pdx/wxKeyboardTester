@@ -227,9 +227,17 @@ sub process_code {
     }
 }
 
+sub data_file {
+    if ( -d File::Spec->catfile($FindBin::Bin, "..", "data") ) {
+        return File::Spec->catfile($FindBin::Bin, "..", "data", @_);
+    } else {
+        return File::Spec->catfile("/usr", "share", "wx-keyboard-tester", @_);
+    }
+}
+
 sub xml_file {
     my $basename = pop();
-    my $f = File::Spec->catfile($FindBin::Bin, "..", "data", @_, $basename . ".xml");
+    my $f = data_file(@_, $basename . ".xml");
 }
 
 sub load_xml {
@@ -247,7 +255,7 @@ sub find_choices {
   my @list = @_;
   my @files = File::Find::Rule->file()
     ->name( '*.xml' )
-    ->in( File::Spec->catfile($FindBin::Bin, "..", "data", @_) );
+    ->in( data_file( @_) );
   @files = map {s/^.*\/(.*)\.xml$/$1/; $_} @files;
   my $hash = {};
   foreach(@files) {
