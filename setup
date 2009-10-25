@@ -1,0 +1,19 @@
+#!/bin/bash
+# Setup a system, form a vanilla lenny install to be a keyboard testing station
+# Author: David Konsumer <konsumer@jetboystudio.com>
+# Licence: GPL 2.0
+
+
+wget http://people.debian.org/~ryan/libwx-perl_0.93-1~bpo50+1_i386.deb
+dpkg -i libwx-perl_0.93-1~bpo50+1_i386.deb
+apt-get install -f
+apt-get install git-core xorg xinit
+
+cd /root/
+git clone git://git.freegeek.org/git/wxKeyboardTester
+
+cd wxKeyboardTester
+cp wx-keyboard-tester /etc/init.d
+update-rc.d wx-keyboard-tester defaults
+
+

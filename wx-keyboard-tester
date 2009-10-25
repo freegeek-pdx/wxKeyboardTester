@@ -1,0 +1,25 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          wx-keyboard-tester
+# Required-Start:    $remote_fs
+# Required-Stop:     $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Keyboard Testing program
+# Description:       Starts keyboard tester, shuts-down when finished.
+### END INIT INFO
+
+# Author: David Konsumer <konsumer@jetboystudio.com>
+#
+# Do NOT "set -e"
+	
+case "$1" in
+  start)
+	xinit /root/wxKeyboardTester/bin/keyboard.pl && shutdown -h now
+	;;
+  *)
+	echo "Usage: $SCRIPTNAME {start}" >&2
+	exit 3
+	;;
+esac
+
