@@ -7,6 +7,7 @@
 wget http://people.debian.org/~ryan/libwx-perl_0.93-1~bpo50+1_i386.deb
 dpkg -i libwx-perl_0.93-1~bpo50+1_i386.deb
 apt-get install -f
+apt-get install libxml-mini-perl libfile-find-rule-perl
 apt-get install git-core xorg xinit
 
 cd /root/
