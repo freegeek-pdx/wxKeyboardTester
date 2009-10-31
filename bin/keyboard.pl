@@ -149,9 +149,22 @@ sub new {
 #    $main::width = $size->GetWidth() / 2.0;
     my $total_width = Wx::GetDisplaySize()->GetWidth();
     $main::height = $main::settings{'height'}->{'-content'};
-    $main::width = $main::settings{'width'}->{'-content'};
-    $main::width = $total_width / 22.5; # 22.5 is the total we need, see below.
+#    $main::width = $main::settings{'width'}->{'-content'};
     my %width_hash = ();
+    # determine needed width
+    foreach(@main::keys) {
+	my $hash = $_;
+	$width_hash{$hash->{'row'}} ||= 0;
+	$width_hash{$hash->{'row'}} += $hash->{'skip'} if($hash->{'skip'});
+	my $multiplier = 1;
+	if($hash->{'width'}) {
+	    $multiplier = $hash->{'width'};
+	}
+	$width_hash{$hash->{'row'}} += $multiplier;
+    }
+    my $needed = @{[reverse(sort(values(%width_hash)))]}[0];
+    $main::width = $total_width / $needed;
+    %width_hash = ();
     %main::buttons = ();
     my $restart_button = Wx::Button->new($this, wxID_ANY, "Restart", [0, 0]);
     EVT_BUTTON($restart_button, wxID_ANY, \&Restart);
@@ -183,11 +196,6 @@ sub new {
 	$width_hash{$hash->{'row'}} += $main::width * $multiplier;
 	$button->SetSize(Wx::Size->new($main::width * $multiplier, $main::height * $v_multiplier));
     }
-# figure out total width
-#    foreach(values %width_hash) {
-#	my $val = $_ / $main::width;
-#	print $val . "\n";
-#    }
     EVT_CLOSE( $this, \&OnClose );
     foreach(@main::found_keycodes) {
 	main::process_code($_);
