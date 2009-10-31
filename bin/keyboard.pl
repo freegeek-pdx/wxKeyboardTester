@@ -147,8 +147,10 @@ sub new {
 #    my $size = Wx::Button::GetDefaultSize;
 #    $main::height = $size->GetHeight();
 #    $main::width = $size->GetWidth() / 2.0;
+    my $total_width = Wx::GetDisplaySize()->GetWidth();
     $main::height = $main::settings{'height'}->{'-content'};
     $main::width = $main::settings{'width'}->{'-content'};
+    $main::width = $total_width / 22.5; # 22.5 is the total we need, see below.
     my %width_hash = ();
     %main::buttons = ();
     my $restart_button = Wx::Button->new($this, wxID_ANY, "Restart", [0, 0]);
@@ -181,6 +183,11 @@ sub new {
 	$width_hash{$hash->{'row'}} += $main::width * $multiplier;
 	$button->SetSize(Wx::Size->new($main::width * $multiplier, $main::height * $v_multiplier));
     }
+# figure out total width
+#    foreach(values %width_hash) {
+#	my $val = $_ / $main::width;
+#	print $val . "\n";
+#    }
     EVT_CLOSE( $this, \&OnClose );
     foreach(@main::found_keycodes) {
 	main::process_code($_);
