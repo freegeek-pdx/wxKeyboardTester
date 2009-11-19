@@ -1,4 +1,4 @@
-wx-keyboard-tester (0.02) unstable; urgency=low
+wx-keyboard-tester (0.02) UNRELEASED; urgency=low
 
   * add an Admin button to the settings page that takes a password
     (4321) just so that it can't be accidently done. this will reboot
