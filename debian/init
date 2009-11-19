@@ -32,6 +32,7 @@ case "$1" in
 	;;
   stop|restart|force-reload)
         echo "action $1 is not implemented."
+        ;;
   *)
 	echo "Usage: $SCRIPTNAME {start,stop,restart,force-reload}" >&2
 	exit 3
