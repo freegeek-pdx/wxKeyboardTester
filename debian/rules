@@ -4,6 +4,13 @@
 	dh $@
 
 D=debian/$(shell dh_listpackages)
+CMD=$(subst override_,,$@)
+
+debian/wx-keyboard-tester.1: debian/wx-keyboard-tester.pod
+	pod2man debian/wx-keyboard-tester.pod > debian/wx-keyboard-tester.1
+
+override_dh_installman: debian/wx-keyboard-tester.1
+	$(CMD)
 
 override_dh_auto_install:
 	mkdir -p $(D)/usr/bin/

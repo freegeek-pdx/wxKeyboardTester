@@ -1,0 +1,12 @@
+=head1 NAME
+
+wx-keyboard-tester - a keyboard tester
+
+=cut
+
+=head1 DESCRIPTION
+
+wx-keyboard-tester should be started on system startup, but you can
+also start it by running wx-keyboard-tester.
+
+=cut
