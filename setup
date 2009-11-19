@@ -8,3 +8,4 @@ apt-get install -f
 echo "deb http://apt.freegeek.org/ freegeek public debian" >/etc/apt/sources.list.d/freegeek.list
 apt-get update --allow-unauthenticated
 apt-get install --allow-unauthenticated -y freegeek-archive-keyring wx-keyboard-tester
+apt-get update
