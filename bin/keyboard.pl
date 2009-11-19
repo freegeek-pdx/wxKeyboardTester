@@ -301,10 +301,14 @@ our ($mainwindow);
 our $profiles = find_choices("profiles");
 our $keyboards = find_choices("keyboards");
 our $user_settings_file = $ENV{HOME} . "/.wxKeyboardTester.xml";
-my $settings_hash = {};
-eval {
+our $system_settings_file = "/etc/wxKeyboardTester.xml";
+if(-f $user_settings_file) {
     $settings_hash = load_xml($user_settings_file);
-};
+} elsif(-f $system_settings_file) {
+    $settings_hash = load_xml($system_settings_file);
+} else {
+    $settings_hash = {};
+}
 our $default_profile = $settings_hash->{'profile'};
 our $default_keyboard = $settings_hash->{'keyboard'};
 grep {$default_profile eq $_} @{[values(%{$profiles})]} or $default_profile = @{[values(%{$profiles})]}[0];
