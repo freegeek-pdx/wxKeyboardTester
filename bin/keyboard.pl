@@ -29,7 +29,7 @@ use CGI;
 
 package MyDialog;
 
-use Wx qw(wxDefaultSize wxDefaultValidator wxID_ANY wxDefaultPosition);
+use Wx qw(wxDefaultSize wxDefaultValidator wxID_ANY wxDefaultPosition wxICON_ERROR);
 use Wx::Event qw(EVT_KEY_DOWN EVT_CLOSE EVT_LEFT_DOWN EVT_BUTTON);
 
 use base 'Wx::Frame';
@@ -62,6 +62,8 @@ sub new {
     $this->{'myjunk'}->{'keyboards'}->SetSelection($i_keyboards);
     my $button = Wx::Button->new($this, wxID_ANY, "OK", [0, 440]);
     EVT_BUTTON($button, wxID_ANY, sub { OnButton($this); });
+    my $a_button = Wx::Button->new($this, wxID_ANY, "Admin", [0, 480]);
+    EVT_BUTTON($a_button, wxID_ANY, sub { OnAdmin($this); });
     EVT_CLOSE( $this, \&OnClose );
     $this->Show;
     $this->ShowFullScreen(1);
@@ -74,6 +76,7 @@ sub start {
 	$main::mainwindow->Destroy();
     }
     $main::mainwindow = $class->new();
+    $main::windowtype = "settings";
 }
 
 sub save_settings {
@@ -81,6 +84,18 @@ sub save_settings {
     print $F "<profile>" . $main::default_profile . "</profile>\n";
     print $F "<keyboard>" . $main::default_keyboard . "</keyboard>\n";
     close $F;
+}
+
+sub OnAdmin {
+    my $this = shift;
+    my $res = Wx::GetPasswordFromUser("What's the admin password?", "Enter password", "", $this);
+    if($res eq "4321") {
+	system("touch /tmp/wx-keyboard-tester.disabled");
+	system("reboot");
+	$this->Destroy;
+    } else {
+	Wx::MessageBox("Incorrect password", "", wxICON_ERROR, $this);
+    }
 }
 
 sub OnButton {
@@ -114,6 +129,7 @@ sub start {
 	$main::mainwindow->Destroy();
     }
     $main::mainwindow = $class->new();
+    $main::windowtype = "tester";
 }
 
 sub Restart {
@@ -227,6 +243,10 @@ use XML::Mini::Document;
 
 sub keydown {
     my($this, $event) = @_;
+    unless($main::windowtype eq "tester") {
+	$event->Skip();
+	return;
+    }
     my $code = $event->GetRawKeyCode();
     process_code($code);
     push @main::found_keycodes, $code unless(grep {$_ == $code} @main::found_keycodes);
@@ -315,7 +335,7 @@ our $default_keyboard = $settings_hash->{'keyboard'};
 grep {$default_profile eq $_} @{[values(%{$profiles})]} or $default_profile = @{[values(%{$profiles})]}[0];
 grep {$default_keyboard eq $_} @{[values(%{$keyboards})]} or $default_keyboard = @{[values(%{$keyboards})]}[0];
 MyDialog::save_settings();
-
+our $window_type;
 my $app = Wx::SimpleApp->new;
 EVT_KEY_DOWN($app, \&main::keydown);
 MyWindow->start();
