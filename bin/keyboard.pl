@@ -62,8 +62,10 @@ sub new {
     $this->{'myjunk'}->{'keyboards'}->SetSelection($i_keyboards);
     my $button = Wx::Button->new($this, wxID_ANY, "OK", [0, 440]);
     EVT_BUTTON($button, wxID_ANY, sub { OnButton($this); });
-    my $a_button = Wx::Button->new($this, wxID_ANY, "Admin", [0, 480]);
-    EVT_BUTTON($a_button, wxID_ANY, sub { OnAdmin($this); });
+    if(`bash -c '. /etc/default/wx-keyboard-tester; echo -n \$DISABLED'` ne "1") {
+	my $a_button = Wx::Button->new($this, wxID_ANY, "Admin", [0, 480]);
+	EVT_BUTTON($a_button, wxID_ANY, sub { OnAdmin($this); });
+    }
     EVT_CLOSE( $this, \&OnClose );
     $this->Show;
     $this->ShowFullScreen(1);
