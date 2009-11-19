@@ -184,11 +184,11 @@ sub new {
     $main::width = $total_width / $needed;
     %width_hash = ();
     %main::buttons = ();
-    my $restart_button = Wx::Button->new($this, wxID_ANY, "Restart", [0, 0]);
+    my $restart_button = Wx::Button->new($this, wxID_ANY, "Restart", [200, 0]);
     EVT_BUTTON($restart_button, wxID_ANY, \&Restart);
     my $settings_button = Wx::Button->new($this, wxID_ANY, "Settings", [100, 0]);
     EVT_BUTTON($settings_button, wxID_ANY, \&Settings);
-    my $quit_button = Wx::Button->new($this, wxID_ANY, "Quit", [200, 0]);
+    my $quit_button = Wx::Button->new($this, wxID_ANY, "Shut Down", [0, 0]);
     EVT_BUTTON($quit_button, wxID_ANY, sub {$this->OnClose;});
     my $text_keyboard;
     my $text_profile;
