@@ -18,13 +18,13 @@ if [ -f /etc/default/wx-keyboard-tester ]; then
     . /etc/default/wx-keyboard-tester
 fi
 if [ -z "$SCRIPT" -o ! -f "$SCRIPT" ]; then
-    SCRIPT=/usr/bin/keyboard.pl
+    SCRIPT=/usr/bin/wx-keyboard-tester
 fi
 if [ ! -f $SCRIPT ]; then
     SCRIPT=/root/wxKeyboardTester/bin/keyboard.pl
 fi
 if [ ! -f $SCRIPT -a "$1" = "start" ]; then
-    echo "Can't find keyboard.pl"
+    echo "Can't find keyboard.pl/wx-keyboard-tester"
     exit 1
 fi
 
