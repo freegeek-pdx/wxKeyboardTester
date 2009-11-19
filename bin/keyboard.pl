@@ -302,6 +302,7 @@ our $profiles = find_choices("profiles");
 our $keyboards = find_choices("keyboards");
 our $user_settings_file = $ENV{HOME} . "/.wxKeyboardTester.xml";
 our $system_settings_file = "/etc/wxKeyboardTester.xml";
+my $settings_hash;
 if(-f $user_settings_file) {
     $settings_hash = load_xml($user_settings_file);
 } elsif(-f $system_settings_file) {
