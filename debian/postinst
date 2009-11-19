@@ -4,4 +4,7 @@ set -e
 if [ -x "/etc/init.d/wx-keyboard-tester" ]; then
         update-rc.d wx-keyboard-tester defaults >/dev/null
 fi
+if [ -f /etc/ltsp_chroot ]; then
+   sed -i s/DISABLED=0/DISABLED=1/ /etc/defaults/wx-keyboard-tester
+fi
 # no debhelper token, we don't want to start it on install.
