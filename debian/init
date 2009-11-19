@@ -16,8 +16,8 @@ if [ -f /etc/default/wx-keyboard-tester ]; then
     . /etc/default/wx-keyboard-tester
 fi
 if [ -f /tmp/wx-keyboard-tester.disabled ]; then
-    /bin/bash
     rm /tmp/wx-keyboard-tester.disabled
+    /bin/bash
     reboot
     exit 0
 fi
