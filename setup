@@ -4,16 +4,21 @@
 # Licence: GPL 2.0
 
 
+cd /root/
+
 wget http://people.debian.org/~ryan/libwx-perl_0.93-1~bpo50+1_i386.deb
 dpkg -i libwx-perl_0.93-1~bpo50+1_i386.deb
 apt-get install -f
-apt-get install libxml-mini-perl libfile-find-rule-perl
-apt-get install git-core xorg xinit
+apt-get install libxml-mini-perl libfile-find-rule-perl git-core xorg xinit
 
-cd /root/
-git clone git://git.freegeek.org/git/wxKeyboardTester
+if [ -d wxKeyboardTester ]; then
+    cd wxKeyboardTester
+    git pull
+else
+    git clone git://git.freegeek.org/git/wxKeyboardTester
+    cd wxKeyboardTester
+fi
 
-cd wxKeyboardTester
 ln -sf $(readlink -f debian/init) /etc/init.d/wx-keyboard-tester
 update-rc.d wx-keyboard-tester defaults
 
