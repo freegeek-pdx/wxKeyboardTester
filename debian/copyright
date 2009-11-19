@@ -1,8 +1,3 @@
-Files: ./setup
-Author: David Konsumer <konsumer@jetboystudio.com>
-License: GPL-2
-    See /usr/share/common-licenses/GPL-2.
-
 Files: *
 Copyright: Copyright (c) 2009, Ryan Niebur
 License: MIT
