@@ -12,10 +12,25 @@
 # Author: David Konsumer <konsumer@jetboystudio.com>
 #
 # Do NOT "set -e"
-	
+
+# to set $SCRIPT, if you really must
+if [ -f /etc/default/wx-keyboard-tester ]; then
+    . /etc/default/wx-keyboard-tester
+fi
+if [ -z "$SCRIPT" -o ! -f "$SCRIPT" ]; then
+    SCRIPT=/usr/bin/keyboard.pl
+fi
+if [ ! -f $SCRIPT ]; then
+    SCRIPT=/root/wxKeyboardTester/bin/keyboard.pl
+fi
+if [ ! -f $SCRIPT -a "$1" = "start" ]; then
+    echo "Can't find keyboard.pl"
+    exit 1
+fi
+
 case "$1" in
   start)
-	xinit /root/wxKeyboardTester/bin/keyboard.pl && shutdown -h now
+	xinit $SCRIPT && shutdown -h now
 	;;
   *)
 	echo "Usage: $SCRIPTNAME {start}" >&2

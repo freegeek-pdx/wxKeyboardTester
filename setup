@@ -14,7 +14,7 @@ cd /root/
 git clone git://git.freegeek.org/git/wxKeyboardTester
 
 cd wxKeyboardTester
-cp wx-keyboard-tester /etc/init.d
+ln -sf $(readlink -f debian/init) /etc/init.d/wx-keyboard-tester
 update-rc.d wx-keyboard-tester defaults
 
 
