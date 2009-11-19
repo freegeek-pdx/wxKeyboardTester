@@ -1,0 +1,7 @@
+Files: ./setup
+Author: David Konsumer <konsumer@jetboystudio.com>
+License: GPL-2.0
+
+Files: *
+Copyright: Copyright (c) 2009, Ryan Niebur
+License: MIT

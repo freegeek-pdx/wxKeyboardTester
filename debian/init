@@ -9,8 +9,6 @@
 # Description:       Starts keyboard tester, shuts-down when finished.
 ### END INIT INFO
 
-# Author: David Konsumer <konsumer@jetboystudio.com>
-#
 # Do NOT "set -e"
 
 # to set $SCRIPT, if you really must
