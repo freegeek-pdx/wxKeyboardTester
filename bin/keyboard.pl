@@ -5,6 +5,10 @@ BEGIN {
     if($@) {
 	die("Requires Wx perl module (latest from CPAN or Debian Sid)");
     }
+    eval("require XML::Quote;");
+    if($@) {
+	die("Requires XML::Quote perl module (from CPAN or libxml-quote-perl package)");
+    }
     eval("require XML::Mini::Document;");
     if($@) {
 	die("Requires XML::Mini::Document perl module (from CPAN or libxml-mini-perl package)");
@@ -15,7 +19,7 @@ BEGIN {
     }
 }
 
-use CGI;
+use XML::Quote qw(xml_dequote);
 
 *XML::Mini::escapeEntities = sub {
     my $class = shift;
@@ -23,7 +27,7 @@ use CGI;
     
     return undef unless (defined $toencode);
 
-    $toencode = CGI::unescapeHTML($toencode);
+    $toencode = xml_dequote($toencode);
     return $toencode;
 };
 

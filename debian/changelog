@@ -5,8 +5,9 @@ wx-keyboard-tester (0.02) UNRELEASED; urgency=low
     be accidently done. this will reboot the system into a shell.
   * switch the restart and quit buttons, change quit text to 'shut down'
     (Closes: #16165)
+  * switch from the ugly CGI::unescapeHTML hack to using XML::Quote
 
- -- Ryan Niebur <ryan@debian.org>  Wed, 18 Nov 2009 22:51:12 -0800
+ -- Ryan Niebur <ryan@debian.org>  Sat, 12 Dec 2009 22:11:47 -0800
 
 wx-keyboard-tester (0.01) unstable; urgency=low
 
