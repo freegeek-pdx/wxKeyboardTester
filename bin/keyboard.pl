@@ -28,6 +28,9 @@ use XML::Quote qw(xml_dequote);
     return undef unless (defined $toencode);
 
     $toencode = xml_dequote($toencode);
+    $toencode =~ s/&#(\d+);/chr($1)/ge;
+    $toencode =~ s/\\\\/\\/g;
+
     return $toencode;
 };
 
