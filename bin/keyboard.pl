@@ -39,7 +39,7 @@ my $override = Sub::Override->new("XML::Mini::escapeEntities", $escape);
 
 package MyDialog;
 
-use Wx qw(wxDefaultSize wxDefaultValidator wxID_ANY wxDefaultPosition wxICON_ERROR);
+use Wx qw(wxDefaultSize wxDefaultValidator wxID_ANY wxDefaultPosition wxICON_ERROR wxFONTFAMILY_DEFAULT wxFONTSTYLE_NORMAL wxFONTWEIGHT_BOLD);
 use Wx::Event qw(EVT_KEY_DOWN EVT_CLOSE EVT_LEFT_DOWN EVT_BUTTON);
 
 use base 'Wx::Frame';
@@ -202,7 +202,8 @@ sub new {
     EVT_BUTTON($quit_button, wxID_ANY, sub {$this->OnClose;});
     my $text_keyboard;
     my $text_profile;
-    Wx::StaticText->new($this, wxID_ANY, "Current Keyboard Layout: " . reverse_hash($main::keyboards)->{$main::default_keyboard} . "\nCurrent Display Profile: " . reverse_hash($main::profiles)->{$main::default_profile}, [300, 0], wxDefaultSize, 0, "");
+    my $text = Wx::StaticText->new($this, wxID_ANY, "Current Keyboard Layout: " . reverse_hash($main::keyboards)->{$main::default_keyboard} . "\nCurrent Display Profile: " . reverse_hash($main::profiles)->{$main::default_profile}, [300, 0], wxDefaultSize, 0, "");
+    $text->SetFont(Wx::Font->newLong(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_MAX, 0));
     foreach(@main::keys) {
 	my $hash = $_;
 	$width_hash{$hash->{'row'}} ||= 0;
