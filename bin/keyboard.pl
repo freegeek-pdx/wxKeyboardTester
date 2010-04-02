@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 
 BEGIN {
-    eval("use Wx 0.92;"); # TODO: switch this back to 0.93
+    eval("use Wx 0.93;");
     if($@) {
 	die("Requires Wx perl module (latest from CPAN or Debian Sid)");
     }
