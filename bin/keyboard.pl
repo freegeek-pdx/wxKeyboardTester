@@ -21,10 +21,10 @@ BEGIN {
 
 use XML::Quote qw(xml_dequote);
 
-*XML::Mini::escapeEntities = sub {
+my $escape = sub {
     my $class = shift;
     my $toencode = shift;
-    
+
     return undef unless (defined $toencode);
 
     $toencode = xml_dequote($toencode);
@@ -33,6 +33,9 @@ use XML::Quote qw(xml_dequote);
 
     return $toencode;
 };
+
+use Sub::Override;
+my $override = Sub::Override->new("XML::Mini::escapeEntities", $escape);
 
 package MyDialog;
 
