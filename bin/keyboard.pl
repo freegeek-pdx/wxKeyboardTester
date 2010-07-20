@@ -21,6 +21,13 @@ BEGIN {
 
 use XML::Quote qw(xml_dequote);
 
+system(qw(xmodmap -e), "keycode 157 = 65469");
+=begin
+system(qw(xmodmap -e), "keycode 182 = 65441");
+system(qw(xmodmap -e), "keycode 183 = 65442");
+system(qw(xmodmap -e), "keycode 184 = 65443");
+=cut
+
 my $escape = sub {
     my $class = shift;
     my $toencode = shift;

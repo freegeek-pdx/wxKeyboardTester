@@ -7,6 +7,9 @@ wx-keyboard-tester (0.02) UNRELEASED; urgency=low
     (Closes: #16165)
   * switch from the ugly CGI::unescapeHTML hack to using XML::Quote
   * make the text on the current values bigger (Closes: #16163)
+  * mac: rename the insert key to the help key, as it actually displays
+    on the keyboard
+  * mac: fix the equal key on the numpad
 
  -- Ryan Niebur <ryan@debian.org>  Sat, 12 Dec 2009 22:11:47 -0800
 
