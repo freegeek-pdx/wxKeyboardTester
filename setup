@@ -2,8 +2,8 @@
 
 set -e
 
-wget http://people.debian.org/~ryan/libwx-perl_0.93-1~bpo50+1_i386.deb
-dpkg -i libwx-perl_0.93-1~bpo50+1_i386.deb
+wget http://people.debian.org/~ryan/libwx-perl_0.93-1~bpo50+1_i386.deb http://people.debian.org/~ryan/libxml-quote-perl_1.02-1~bpo50+1_i386.deb
+dpkg -i libwx-perl_0.93-1~bpo50+1_i386.deb libxml-quote-perl_1.02-1~bpo50+1_i386.deb
 apt-get install -f
 echo "deb http://apt.freegeek.org/ freegeek public debian" >/etc/apt/sources.list.d/freegeek.list
 apt-get update --allow-unauthenticated
