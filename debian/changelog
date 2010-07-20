@@ -9,7 +9,7 @@ wx-keyboard-tester (0.02) UNRELEASED; urgency=low
   * make the text on the current values bigger (Closes: #16163)
   * mac: rename the insert key to the help key, as it actually displays
     on the keyboard
-  * mac: fix the equal key on the numpad
+  * mac: fix the equal key on the numpad (Closes: #16162)
 
  -- Ryan Niebur <ryan@debian.org>  Sat, 12 Dec 2009 22:11:47 -0800
 
