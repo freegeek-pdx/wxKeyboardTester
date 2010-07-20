@@ -1,4 +1,4 @@
-wx-keyboard-tester (0.02) unstable; urgency=low
+wx-keyboard-tester (0.02) freegeek-test; urgency=low
 
   * add an Admin button (this won't show up on LTSP chroots) to the
     settings page that takes a password (4321) just so that it can't
@@ -13,7 +13,7 @@ wx-keyboard-tester (0.02) unstable; urgency=low
 
  -- Ryan Niebur <ryan@debian.org>  Tue, 20 Jul 2010 14:52:50 -0700
 
-wx-keyboard-tester (0.01) unstable; urgency=low
+wx-keyboard-tester (0.01) freegeek-test; urgency=low
 
   * Initial release
 
