@@ -1,0 +1,6 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=wxKeyboardTester
+Exec=/usr/bin/wx-keyboard-tester
+Type=Application
+

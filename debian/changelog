@@ -1,3 +1,12 @@
+wx-keyboard-tester (0.03) freegeek-test; urgency=low
+
+  * move to Section: public
+  * run via xsession
+  * remove init script
+  * remove Admin setting
+
+ -- Ryan Niebur <ryan@debian.org>  Sat, 21 Jan 2012 17:30:00 -0800
+
 wx-keyboard-tester (0.02) freegeek-test; urgency=low
 
   * add an Admin button (this won't show up on LTSP chroots) to the

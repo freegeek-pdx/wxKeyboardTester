@@ -1,5 +1,5 @@
 Source: wx-keyboard-tester
-Section: debian/utils
+Section: public/utils
 Priority: optional
 Build-Depends: debhelper (>= 7.0.50), perl
 Maintainer: Ryan Niebur <ryan@debian.org>

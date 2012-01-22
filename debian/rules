@@ -16,6 +16,8 @@ override_dh_auto_install:
 	mkdir -p $(D)/usr/bin/
 	mkdir -p $(D)/usr/share/
 	mkdir -p $(D)/etc/
+	mkdir -p $(D)/usr/share/xsessions/
 	cp -a ./bin/keyboard.pl $(D)/usr/bin/wx-keyboard-tester
 	cp -a ./data/ $(D)/usr/share/wx-keyboard-tester/
 	cp -a wxKeyboardTester.xml $(D)/etc/wxKeyboardTester.xml
+	cp -a wxKeyboardTester.desktop $(D)/usr/share/xsessions/

@@ -79,10 +79,10 @@ sub new {
     $this->{'myjunk'}->{'keyboards'}->SetSelection($i_keyboards);
     my $button = Wx::Button->new($this, wxID_ANY, "OK", [0, 440]);
     EVT_BUTTON($button, wxID_ANY, sub { OnButton($this); });
-    if(`bash -c '. /etc/default/wx-keyboard-tester; echo -n \$DISABLED'` ne "1") {
-	my $a_button = Wx::Button->new($this, wxID_ANY, "Admin", [0, 480]);
-	EVT_BUTTON($a_button, wxID_ANY, sub { OnAdmin($this); });
-    }
+#    if(`bash -c '. /etc/default/wx-keyboard-tester; echo -n \$DISABLED'` ne "1") {
+#	my $a_button = Wx::Button->new($this, wxID_ANY, "Admin", [0, 480]);
+#	EVT_BUTTON($a_button, wxID_ANY, sub { OnAdmin($this); });
+#    }
     EVT_CLOSE( $this, \&OnClose );
     $this->Show;
     $this->ShowFullScreen(1);
@@ -105,17 +105,17 @@ sub save_settings {
     close $F;
 }
 
-sub OnAdmin {
-    my $this = shift;
-    my $res = Wx::GetPasswordFromUser("What's the admin password?", "Enter password", "", $this);
-    if($res eq "4321") {
-	system("touch /tmp/wx-keyboard-tester.disabled");
-	system("reboot");
-	$this->Destroy;
-    } else {
-	Wx::MessageBox("Incorrect password", "", wxICON_ERROR, $this);
-    }
-}
+#sub OnAdmin {
+#    my $this = shift;
+#    my $res = Wx::GetPasswordFromUser("What's the admin password?", "Enter password", "", $this);
+#    if($res eq "4321") {
+#	system("touch /tmp/wx-keyboard-tester.disabled");
+#	system("reboot");
+#	$this->Destroy;
+#    } else {
+#	Wx::MessageBox("Incorrect password", "", wxICON_ERROR, $this);
+#    }
+#}
 
 sub OnButton {
     my $this = shift;
