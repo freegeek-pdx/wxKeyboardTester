@@ -1,8 +1,8 @@
-wx-keyboard-tester (0.04) UNRELEASED; urgency=low
+wx-keyboard-tester (0.04) freegeek-test; urgency=low
 
   * Remove postinst, init scripts are not used any more
 
- -- Ryan Niebur <ryan@debian.org>  Thu, 05 Apr 2012 17:53:59 -0700
+ -- Ryan Niebur <ryan@debian.org>  Thu, 05 Apr 2012 17:54:07 -0700
 
 wx-keyboard-tester (0.03) freegeek-test; urgency=low
 
