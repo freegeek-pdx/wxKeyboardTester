@@ -6,10 +6,10 @@
 D=debian/$(shell dh_listpackages)
 CMD=$(subst override_,,$@)
 
-debian/wx-keyboard-tester.1: debian/wx-keyboard-tester.pod
-	pod2man debian/wx-keyboard-tester.pod > debian/wx-keyboard-tester.1
+debian/%.1: $(subst .1,.pod,$@)
+	pod2man $(subst .1,.pod,$@) >  $@
 
-override_dh_installman: debian/wx-keyboard-tester.1
+override_dh_installman: debian/wx-keyboard-tester.1 debian/wx-mouse-tester.1
 	$(CMD)
 
 override_dh_auto_install:
@@ -18,6 +18,8 @@ override_dh_auto_install:
 	mkdir -p $(D)/etc/
 	mkdir -p $(D)/usr/share/xsessions/
 	cp -a ./bin/keyboard.pl $(D)/usr/bin/wx-keyboard-tester
+	cp -a ./bin/mouse.pl $(D)/usr/bin/wx-mouse-tester
 	cp -a ./data/ $(D)/usr/share/wx-keyboard-tester/
 	cp -a wxKeyboardTester.xml $(D)/etc/wxKeyboardTester.xml
 	cp -a wxKeyboardTester.desktop $(D)/usr/share/xsessions/
+
