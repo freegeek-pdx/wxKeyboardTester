@@ -8,6 +8,7 @@ Standards-Version: 3.8.3
 Package: wx-keyboard-tester
 Architecture: all
 Depends: ${misc:Depends}, ${perl:Depends}, ${shlibs:Depends}, libxml-mini-perl, libfile-find-rule-perl, libwx-perl (>= 0.93), xorg, xinit, libxml-quote-perl, libsub-override-perl
-Description: super awesome keyboard tester
- wxKeyboardTester is a super awesome keyboard tester used by Freegeek
- to test donated keyboards. It supports mac and 104-key keyboards.
+Description: super awesome keyboard and mouse testing scripts
+ wxKeyboardTester and wxMouseTester are super awesome keyboard and
+ mouse tester scripts used by Freegeek to test donated equipment. They
+ support mouses with scroll wheels and mac or 104-key keyboards.
