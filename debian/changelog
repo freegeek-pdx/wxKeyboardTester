@@ -1,8 +1,8 @@
-wx-keyboard-tester (0.05) UNRELEASED; urgency=low
+wx-keyboard-tester (0.05) freegeek-test; urgency=low
 
   * Add a mouse testing script (Closes: #27058)
 
- -- Ryan Niebur <ryan@debian.org>  Sat, 28 Apr 2012 02:33:56 -0700
+ -- Ryan Niebur <ryan@debian.org>  Sat, 12 May 2012 13:22:42 -0700
 
 wx-keyboard-tester (0.04) freegeek-test; urgency=low
 
