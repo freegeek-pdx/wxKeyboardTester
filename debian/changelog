@@ -1,3 +1,9 @@
+wx-keyboard-tester (0.06) freegeek-test; urgency=low
+
+  * show arrows on the mouse tester
+
+ -- Ryan Niebur <ryan@debian.org>  Sat, 12 May 2012 14:04:40 -0700
+
 wx-keyboard-tester (0.05) freegeek-test; urgency=low
 
   * Add a mouse testing script (Closes: #27058)
