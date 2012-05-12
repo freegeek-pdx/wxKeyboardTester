@@ -143,7 +143,7 @@ sub OnClose {
 package MyMouseWindow;
 
 use Wx qw(wxDefaultSize wxDefaultValidator wxID_ANY  wxFONTFAMILY_DEFAULT wxFONTSTYLE_NORMAL wxFONTWEIGHT_BOLD wxFONTWEIGHT_MAX);
-use Wx::Event qw(EVT_KEY_DOWN EVT_CLOSE EVT_LEFT_DOWN EVT_BUTTON EVT_LEFT_UP EVT_MIDDLE_UP EVT_RIGHT_UP EVT_MOUSEWHEEL);
+use Wx::Event qw(EVT_KEY_DOWN EVT_PAINT EVT_CLOSE EVT_LEFT_DOWN EVT_BUTTON EVT_LEFT_UP EVT_MIDDLE_UP EVT_RIGHT_UP EVT_MOUSEWHEEL);
 
 use base 'Wx::Frame';
 
@@ -264,7 +264,6 @@ sub new {
 	my $text4 = Wx::StaticText->new($this, wxID_ANY, "Do the same here:", [0, 300], wxDefaultSize, 0, "");
 	$text4->SetFont(Wx::Font->newLong(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_MAX, 0));
 
-	EVT_CLOSE( $this, \&OnClose );
 	my $button8 = Wx::Button->new($this, wxID_ANY, "Drag to and Release Here", [250, 330]);
 	$button8->SetFont(Wx::Font->newLong(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_MAX, 0));
 	$button8->SetFocus();
@@ -281,12 +280,32 @@ sub new {
 	EVT_LEFT_DOWN($button9, sub {my ($this, $event) = @_; $button9->SetBackgroundColour($end_background); $button9->SetForegroundColour($end_foreground); $event->Skip();});
 	EVT_LEFT_UP($button9, sub {my ($this, $event) = @_; my $pos = $event->GetPosition(); if($pos->x >= 0 && $pos->x <= 200 && $pos->y >= -70 && $pos->y <= -25) { $button8->SetBackgroundColour($end_background); $button8->SetForegroundColour($end_foreground); } else { $button9->SetBackgroundColour($start_background); $button9->SetForegroundColour($start_foreground) }; $event->Skip();}  );
     }
+
+    EVT_PAINT( $this, \&OnPaint );
+    EVT_CLOSE( $this, \&OnClose );
+
     my $text5 = Wx::StaticText->new($this, wxID_ANY, "If the tests passed:\n * clean the mouse\n * neatly rubber band the cord\n * sort it into the appropriate box above", [0, $main::default_mode eq 'advanced' ? 460 : 220], wxDefaultSize, 0, "");
     $text5->SetFont(Wx::Font->newLong(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_MAX, 0));
 
     $this->Show;
     $this->ShowFullScreen(1);
     return $this;
+}
+
+sub OnPaint {
+    my ($this, $event) = @_;
+    my $dc = Wx::PaintDC->new($this);
+    if($main::default_mode eq 'advanced') {
+	$dc->DrawLine(310, 275, 390, 275);
+	$dc->DrawLine(310, 275, 320, 250);
+	$dc->DrawLine(310, 275, 320, 300);
+
+	$dc->DrawLine(215, 355, 215, 425);
+	$dc->DrawLine(215, 355, 190, 365);
+	$dc->DrawLine(215, 355, 240, 365);
+    }
+    undef $dc;
+    return;
 }
 
 sub OnClose {
