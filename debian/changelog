@@ -1,7 +1,5 @@
 wx-keyboard-tester (0.05) UNRELEASED; urgency=low
 
-  TODO: Integrate scripts, last state overridable by --mouse
-
   * Add a mouse testing script (Closes: #27058)
 
  -- Ryan Niebur <ryan@debian.org>  Sat, 28 Apr 2012 02:33:56 -0700
