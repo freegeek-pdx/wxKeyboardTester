@@ -34,10 +34,15 @@ sub new {
 	$i_profiles = $i if($main::profiles->{$_} eq $main::default_profile);
 	$i += 1;
     }
+    @modes = qw(advanced basic);
+    $i_mode = $main::default_mode eq 'advanced' ? 0 : 1;
     Wx::StaticText->new($this, wxID_ANY, "Display Profiles:", wxDefaultPosition, wxDefaultSize, 0, "");
     $this->{'myjunk'}->{'profiles'} = Wx::ListBox->new($this, wxID_ANY, [0, 20], [300, 200], \@profiles, 0, wxDefaultValidator, "");
     $this->{'myjunk'}->{'profiles'}->SetSelection($i_profiles);
-    my $button = Wx::Button->new($this, wxID_ANY, "OK", [0, 220]);
+    Wx::StaticText->new($this, wxID_ANY, "Display Modes:", [0, 220], wxDefaultSize, 0, "");
+    $this->{'myjunk'}->{'modes'} = Wx::ListBox->new($this, wxID_ANY, [0, 240], [300, 200], \@modes, 0, wxDefaultValidator, "");
+    $this->{'myjunk'}->{'modes'}->SetSelection($i_mode);
+    my $button = Wx::Button->new($this, wxID_ANY, "OK", [0, 440]);
     EVT_BUTTON($button, wxID_ANY, sub { OnButton($this); });
     EVT_CLOSE( $this, \&OnClose );
     $this->Show;
@@ -57,12 +62,14 @@ sub start {
 sub save_settings {
     open my $F, ">", $main::user_settings_file;
     print $F "<profile>" . $main::default_profile . "</profile>\n";
+    print $F "<mode>" . $main::default_mode . "</mode>\n";
     close $F;
 }
 
 sub OnButton {
     my $this = shift;
     $main::default_profile = $main::profiles->{$this->{'myjunk'}->{'profiles'}->GetStringSelection()};
+    $main::default_mode = $this->{'myjunk'}->{'modes'}->GetStringSelection();
     save_settings();
     MyWindow->start();
     $this->Destroy;
@@ -107,11 +114,11 @@ sub new {
 	$main::settings{$_->{'name'}} = $_;
     };
     my $this = $class->SUPER::new( undef, -1, "", [-1, -1], [250, 110] );
-    my $restart_button = Wx::Button->new($this, wxID_ANY, "Restart", [400, 0]);
+    my $restart_button = Wx::Button->new($this, wxID_ANY, "Restart", [200, 0]);
     EVT_BUTTON($restart_button, wxID_ANY, \&Restart);
-    my $settings_button = Wx::Button->new($this, wxID_ANY, "Settings", [300, 0]);
+    my $settings_button = Wx::Button->new($this, wxID_ANY, "Settings", [100, 0]);
     EVT_BUTTON($settings_button, wxID_ANY, \&Settings);
-    my $quit_button = Wx::Button->new($this, wxID_ANY, "Shut Down", [200, 0]);
+    my $quit_button = Wx::Button->new($this, wxID_ANY, "Shut Down", [0, 0]);
     EVT_BUTTON($quit_button, wxID_ANY, sub {$this->OnClose;});
 
     my $start_background = colour_from_setting('unpressed_color');
@@ -120,82 +127,95 @@ sub new {
     my $end_background = colour_from_setting('pressed_color');
     my $end_foreground = colour_from_setting('pressed_text');
 
-    my $text = Wx::StaticText->new($this, wxID_ANY, "Click each box using the mouse button it is labelled with:", [0, 30], wxDefaultSize, 0, "");
+    my $text = Wx::StaticText->new($this, wxID_ANY, "Click each box using the mouse button it is labelled with if there is one:", [0, 30], wxDefaultSize, 0, "");
     $text->SetFont(Wx::Font->newLong(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_MAX, 0));
 
-    my $button = Wx::Button->new($this, wxID_ANY, "Left Click", [100, 60]);
+    my $button = Wx::Button->new($this, wxID_ANY, "Left Click", [80, 60]);
+    $button->SetFont(Wx::Font->newLong(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_MAX, 0));
     $button->SetFocus();
     $button->SetBackgroundColour($start_background);
     $button->SetForegroundColour($start_foreground);
-    $button->SetSize(Wx::Size->new(100, 30));
+    $button->SetSize(Wx::Size->new(120, 30));
     EVT_LEFT_UP($button, sub {my ($this, $event) = @_; $button->SetBackgroundColour($end_background); $button->SetForegroundColour($end_foreground); $event->Skip();});
 
-    my $button2 = Wx::Button->new($this, wxID_ANY, "Middle Click", [300, 60]);
+    my $button2 = Wx::Button->new($this, wxID_ANY, "Middle Click", [290, 60]);
+    $button2->SetFont(Wx::Font->newLong(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_MAX, 0));
     $button2->SetFocus();
     $button2->SetBackgroundColour($start_background);
     $button2->SetForegroundColour($start_foreground);
-    $button2->SetSize(Wx::Size->new(100, 30));
+    $button2->SetSize(Wx::Size->new(120, 30));
     EVT_MIDDLE_UP($button2, sub {my ($this, $event) = @_; $button2->SetBackgroundColour($end_background); $button2->SetForegroundColour($end_foreground); $event->Skip();});
 
     my $button3 = Wx::Button->new($this, wxID_ANY, "Right Click", [500, 60]);
+    $button3->SetFont(Wx::Font->newLong(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_MAX, 0));
     $button3->SetFocus();
     $button3->SetBackgroundColour($start_background);
     $button3->SetForegroundColour($start_foreground);
-    $button3->SetSize(Wx::Size->new(100, 30));
+    $button3->SetSize(Wx::Size->new(120, 30));
     EVT_RIGHT_UP($button3, sub {my ($this, $event) = @_; $button3->SetBackgroundColour($end_background); $button3->SetForegroundColour($end_foreground); $event->Skip();});
 
     my $text2 = Wx::StaticText->new($this, wxID_ANY, "In each box move the scroll wheel in the direction it is labelled with:", [0, 90], wxDefaultSize, 0, "");
     $text2->SetFont(Wx::Font->newLong(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_MAX, 0));
 
 
-    my $button4 = Wx::Button->new($this, wxID_ANY, "Scroll Up", [200, 120]);
+    my $button4 = Wx::Button->new($this, wxID_ANY, "Scroll\nUp", [200, 120]);
+    $button4->SetFont(Wx::Font->newLong(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_MAX, 0));
     $button4->SetFocus();
     $button4->SetBackgroundColour($start_background);
     $button4->SetForegroundColour($start_foreground);
     $button4->SetSize(Wx::Size->new(100, 100));
     EVT_MOUSEWHEEL($button4, sub {my ($this, $event) = @_; if($event->GetWheelRotation() > 0) { $button4->SetBackgroundColour($end_background); $button4->SetForegroundColour($end_foreground);} $event->Skip();});
 
-    my $button5 = Wx::Button->new($this, wxID_ANY, "Scroll Down", [400, 120]);
+    my $button5 = Wx::Button->new($this, wxID_ANY, "Scroll\nDown", [400, 120]);
+    $button5->SetFont(Wx::Font->newLong(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_MAX, 0));
     $button5->SetFocus();
     $button5->SetBackgroundColour($start_background);
     $button5->SetForegroundColour($start_foreground);
     $button5->SetSize(Wx::Size->new(100, 100));
     EVT_MOUSEWHEEL($button5, sub {my ($this, $event) = @_; if($event->GetWheelRotation() < 0) { $button5->SetBackgroundColour($end_background); $button5->SetForegroundColour($end_foreground);} $event->Skip();});
 
-    my $text3 = Wx::StaticText->new($this, wxID_ANY, "Left click in the second box but continue to hold until releasing in the first box:", [0, 220], wxDefaultSize, 0, "");
-    $text3->SetFont(Wx::Font->newLong(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_MAX, 0));
+    if($main::default_mode eq 'advanced') {
+	my $text3 = Wx::StaticText->new($this, wxID_ANY, "Left click in the second box but continue to hold until releasing in the first box:", [0, 220], wxDefaultSize, 0, "");
+	$text3->SetFont(Wx::Font->newLong(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_MAX, 0));
 
-    my $button6 = Wx::Button->new($this, wxID_ANY, "Drag to and Release Here", [100, 250]);
-    $button6->SetFocus();
-    $button6->SetBackgroundColour($start_background);
-    $button6->SetForegroundColour($start_foreground);
-    $button6->SetSize(Wx::Size->new(200, 50));
+	my $button6 = Wx::Button->new($this, wxID_ANY, "Drag to and Release Here", [100, 250]);
+	$button6->SetFont(Wx::Font->newLong(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_MAX, 0));
+	$button6->SetFocus();
+	$button6->SetBackgroundColour($start_background);
+	$button6->SetForegroundColour($start_foreground);
+	$button6->SetSize(Wx::Size->new(200, 50));
 
-    my $button7 = Wx::Button->new($this, wxID_ANY, "Click and Hold Here", [400, 250]);
-    $button7->SetFocus();
-    $button7->SetBackgroundColour($start_background);
-    $button7->SetForegroundColour($start_foreground);
-    $button7->SetSize(Wx::Size->new(200, 50));
-    EVT_LEFT_DOWN($button7, sub {my ($this, $event) = @_; $button7->SetBackgroundColour($end_background); $button7->SetForegroundColour($end_foreground); $event->Skip();});
-    EVT_LEFT_UP($button7, sub {my ($this, $event) = @_; my $pos = $event->GetPosition(); if($pos->x >= -300 && $pos->x <= -100 && $pos->y >= 0 && $pos->y <= 50) { $button6->SetBackgroundColour($end_background); $button6->SetForegroundColour($end_foreground); } else { $button7->SetBackgroundColour($start_background); $button7->SetForegroundColour($start_foreground) }; $event->Skip();}  );
+	my $button7 = Wx::Button->new($this, wxID_ANY, "Click and Hold Here", [400, 250]);
+	$button7->SetFont(Wx::Font->newLong(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_MAX, 0));
+	$button7->SetFocus();
+	$button7->SetBackgroundColour($start_background);
+	$button7->SetForegroundColour($start_foreground);
+	$button7->SetSize(Wx::Size->new(200, 50));
+	EVT_LEFT_DOWN($button7, sub {my ($this, $event) = @_; $button7->SetBackgroundColour($end_background); $button7->SetForegroundColour($end_foreground); $event->Skip();});
+	EVT_LEFT_UP($button7, sub {my ($this, $event) = @_; my $pos = $event->GetPosition(); if($pos->x >= -300 && $pos->x <= -100 && $pos->y >= 0 && $pos->y <= 50) { $button6->SetBackgroundColour($end_background); $button6->SetForegroundColour($end_foreground); } else { $button7->SetBackgroundColour($start_background); $button7->SetForegroundColour($start_foreground) }; $event->Skip();}  );
 
-    my $text4 = Wx::StaticText->new($this, wxID_ANY, "Do the same here:", [0, 300], wxDefaultSize, 0, "");
-    $text4->SetFont(Wx::Font->newLong(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_MAX, 0));
+	my $text4 = Wx::StaticText->new($this, wxID_ANY, "Do the same here:", [0, 300], wxDefaultSize, 0, "");
+	$text4->SetFont(Wx::Font->newLong(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_MAX, 0));
 
-    EVT_CLOSE( $this, \&OnClose );
-    my $button8 = Wx::Button->new($this, wxID_ANY, "Drag to and Release Here", [250, 330]);
-    $button8->SetFocus();
-    $button8->SetBackgroundColour($start_background);
-    $button8->SetForegroundColour($start_foreground);
-    $button8->SetSize(Wx::Size->new(200, 50));
+	EVT_CLOSE( $this, \&OnClose );
+	my $button8 = Wx::Button->new($this, wxID_ANY, "Drag to and Release Here", [250, 330]);
+	$button8->SetFont(Wx::Font->newLong(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_MAX, 0));
+	$button8->SetFocus();
+	$button8->SetBackgroundColour($start_background);
+	$button8->SetForegroundColour($start_foreground);
+	$button8->SetSize(Wx::Size->new(200, 50));
 
-    my $button9 = Wx::Button->new($this, wxID_ANY, "Click and Hold Here", [250, 400]);
-    $button9->SetFocus();
-    $button9->SetBackgroundColour($start_background);
-    $button9->SetForegroundColour($start_foreground);
-    $button9->SetSize(Wx::Size->new(200, 50));
-    EVT_LEFT_DOWN($button9, sub {my ($this, $event) = @_; $button9->SetBackgroundColour($end_background); $button9->SetForegroundColour($end_foreground); $event->Skip();});
-    EVT_LEFT_UP($button9, sub {my ($this, $event) = @_; my $pos = $event->GetPosition(); if($pos->x >= 0 && $pos->x <= 200 && $pos->y >= -70 && $pos->y <= -25) { $button8->SetBackgroundColour($end_background); $button8->SetForegroundColour($end_foreground); } else { $button9->SetBackgroundColour($start_background); $button9->SetForegroundColour($start_foreground) }; $event->Skip();}  );
+	my $button9 = Wx::Button->new($this, wxID_ANY, "Click and Hold Here", [250, 400]);
+	$button9->SetFocus();
+	$button9->SetFont(Wx::Font->newLong(14, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_MAX, 0));
+	$button9->SetBackgroundColour($start_background);
+	$button9->SetForegroundColour($start_foreground);
+	$button9->SetSize(Wx::Size->new(200, 50));
+	EVT_LEFT_DOWN($button9, sub {my ($this, $event) = @_; $button9->SetBackgroundColour($end_background); $button9->SetForegroundColour($end_foreground); $event->Skip();});
+	EVT_LEFT_UP($button9, sub {my ($this, $event) = @_; my $pos = $event->GetPosition(); if($pos->x >= 0 && $pos->x <= 200 && $pos->y >= -70 && $pos->y <= -25) { $button8->SetBackgroundColour($end_background); $button8->SetForegroundColour($end_foreground); } else { $button9->SetBackgroundColour($start_background); $button9->SetForegroundColour($start_foreground) }; $event->Skip();}  );
+    }
+    my $text5 = Wx::StaticText->new($this, wxID_ANY, "If the tests passed:\n * clean the mouse\n * neatly rubber band the cord\n * sort it into the appropriate box above", [0, $main::default_mode eq 'advanced' ? 460 : 220], wxDefaultSize, 0, "");
+    $text5->SetFont(Wx::Font->newLong(16, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_MAX, 0));
 
     $this->Show;
     $this->ShowFullScreen(1);
@@ -276,6 +296,7 @@ if(-f $user_settings_file) {
 }
 our $default_profile = $settings_hash->{'profile'};
 grep {$default_profile eq $_} @{[values(%{$profiles})]} or $default_profile = @{[values(%{$profiles})]}[0];
+our $default_mode = $settings_hash->{'mode'} || 'advanced';
 MyDialog::save_settings();
 our $window_type;
 my $app = Wx::SimpleApp->new;

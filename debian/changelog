@@ -1,7 +1,6 @@
 wx-keyboard-tester (0.05) UNRELEASED; urgency=low
 
-  TODO: Add ltsp-screen.d, fix to have .desktop file, etc
-	Integrate scripts, last state overridable by --mouse
+  TODO: Integrate scripts, last state overridable by --mouse
 
   * Add a mouse testing script (Closes: #27058)
 
