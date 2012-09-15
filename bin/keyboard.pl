@@ -383,7 +383,8 @@ sub new {
 	}
 	$width_hash{$hash->{'row'}} += $multiplier;
     }
-    my $needed = @{[reverse(sort(values(%width_hash)))]}[0];
+    @list = sort {$b <=> $a} values(%width_hash);
+    my $needed = $list[0];
     $main::width = $total_width / $needed;
     %width_hash = ();
     %main::buttons = ();

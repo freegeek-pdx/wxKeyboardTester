@@ -2,6 +2,7 @@ wx-keyboard-tester (0.07) UNRELEASED; urgency=low
 
   * Change button names, Shutdown -> Quit; Restart -> Reset, which I
     think will work everywhere
+  * Fix a bug in logic detecting maximum virtual keyboard grid width
 
  -- Ryan Niebur <ryan@debian.org>  Sat, 15 Sep 2012 14:57:09 -0700
 
