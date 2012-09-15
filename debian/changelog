@@ -1,3 +1,10 @@
+wx-keyboard-tester (0.07) UNRELEASED; urgency=low
+
+  * Change button names, Shutdown -> Quit; Restart -> Reset, which I
+    think will work everywhere
+
+ -- Ryan Niebur <ryan@debian.org>  Sat, 15 Sep 2012 14:57:09 -0700
+
 wx-keyboard-tester (0.06) freegeek-test; urgency=low
 
   * show arrows on the mouse tester

@@ -179,13 +179,13 @@ sub new {
 	$main::settings{$_->{'name'}} = $_;
     };
     my $this = $class->SUPER::new( undef, -1, "", [-1, -1], [250, 110] );
-    my $restart_button = Wx::Button->new($this, wxID_ANY, "Restart", [300, 0]);
+    my $restart_button = Wx::Button->new($this, wxID_ANY, "Reset", [300, 0]);
     EVT_BUTTON($restart_button, wxID_ANY, \&Restart);
     my $keyboard_button = Wx::Button->new($this, wxID_ANY, "Keyboard", [0, 0]);
     EVT_BUTTON($keyboard_button, wxID_ANY, \&Keyboard);
     my $settings_button = Wx::Button->new($this, wxID_ANY, "Settings", [200, 0]);
     EVT_BUTTON($settings_button, wxID_ANY, \&Settings);
-    my $quit_button = Wx::Button->new($this, wxID_ANY, "Shut Down", [100, 0]);
+    my $quit_button = Wx::Button->new($this, wxID_ANY, "Quit", [100, 0]);
     EVT_BUTTON($quit_button, wxID_ANY, sub {$this->OnClose;});
 
     my $start_background = colour_from_setting('unpressed_color');
@@ -387,13 +387,13 @@ sub new {
     $main::width = $total_width / $needed;
     %width_hash = ();
     %main::buttons = ();
-    my $restart_button = Wx::Button->new($this, wxID_ANY, "Restart", [300, 0]);
+    my $restart_button = Wx::Button->new($this, wxID_ANY, "Reset", [300, 0]);
     EVT_BUTTON($restart_button, wxID_ANY, \&Restart);
     my $mouse_button = Wx::Button->new($this, wxID_ANY, "Mouse", [0, 0]);
     EVT_BUTTON($mouse_button, wxID_ANY, \&Mouse);
     my $settings_button = Wx::Button->new($this, wxID_ANY, "Settings", [200, 0]);
     EVT_BUTTON($settings_button, wxID_ANY, \&Settings);
-    my $quit_button = Wx::Button->new($this, wxID_ANY, "Shut Down", [100, 0]);
+    my $quit_button = Wx::Button->new($this, wxID_ANY, "Quit", [100, 0]);
     EVT_BUTTON($quit_button, wxID_ANY, sub {$this->OnClose;});
     my $text_keyboard;
     my $text_profile;
