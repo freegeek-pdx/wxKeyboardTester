@@ -1,4 +1,4 @@
-wx-keyboard-tester (0.07) UNRELEASED; urgency=low
+wx-keyboard-tester (0.07) freegeek-test; urgency=low
 
   * Change button names, Shutdown -> Quit; Restart -> Reset, which I
     think will work everywhere
@@ -6,7 +6,7 @@ wx-keyboard-tester (0.07) UNRELEASED; urgency=low
   * Add keyboard layout for laptops (Closes: #30737)
     - Add another new layout with the extra 10key number pad
 
- -- Ryan Niebur <ryan@debian.org>  Sat, 15 Sep 2012 14:57:09 -0700
+ -- Ryan Niebur <ryan@debian.org>  Sat, 22 Sep 2012 12:31:41 -0700
 
 wx-keyboard-tester (0.06) freegeek-test; urgency=low
 
