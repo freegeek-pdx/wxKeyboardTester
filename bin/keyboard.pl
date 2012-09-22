@@ -539,8 +539,8 @@ if(-f $user_settings_file) {
 } else {
     $settings_hash = {};
 }
-our $default_profile = $settings_hash->{'profile'};
-our $default_keyboard = $settings_hash->{'keyboard'};
+our $default_profile = $settings_hash->{'profile'} || 'red_and_green';
+our $default_keyboard = $settings_hash->{'keyboard'} || '104';
 our $default_mode = $settings_hash->{'mode'} || 'advanced';
 grep {$default_profile eq $_} @{[values(%{$profiles})]} or $default_profile = @{[values(%{$profiles})]}[0];
 grep {$default_keyboard eq $_} @{[values(%{$keyboards})]} or $default_keyboard = @{[values(%{$keyboards})]}[0];

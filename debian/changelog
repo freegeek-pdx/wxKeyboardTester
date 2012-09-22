@@ -4,6 +4,7 @@ wx-keyboard-tester (0.07) UNRELEASED; urgency=low
     think will work everywhere
   * Fix a bug in logic detecting maximum virtual keyboard grid width
   * Add keyboard layout for laptops (Closes: #30737)
+    - Add another new layout with the extra 10key number pad
 
  -- Ryan Niebur <ryan@debian.org>  Sat, 15 Sep 2012 14:57:09 -0700
 
