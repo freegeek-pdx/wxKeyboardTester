@@ -47,7 +47,7 @@ my $override = Sub::Override->new("XML::Mini::escapeEntities", $escape);
 package MyDialog;
 
 use Wx qw(wxDefaultSize wxDefaultValidator wxID_ANY wxDefaultPosition wxICON_ERROR wxFONTFAMILY_DEFAULT wxFONTSTYLE_NORMAL wxFONTWEIGHT_BOLD);
-use Wx::Event qw(EVT_KEY_DOWN EVT_CLOSE EVT_LEFT_DOWN EVT_BUTTON);
+use Wx::Event qw(EVT_KEY_DOWN EVT_KEY_UP EVT_CLOSE EVT_LEFT_DOWN EVT_BUTTON);
 
 use base 'Wx::Frame';
 sub new {
@@ -143,7 +143,7 @@ sub OnClose {
 package MyMouseWindow;
 
 use Wx qw(wxDefaultSize wxDefaultValidator wxID_ANY  wxFONTFAMILY_DEFAULT wxFONTSTYLE_NORMAL wxFONTWEIGHT_BOLD wxFONTWEIGHT_MAX);
-use Wx::Event qw(EVT_KEY_DOWN EVT_PAINT EVT_CLOSE EVT_LEFT_DOWN EVT_BUTTON EVT_LEFT_UP EVT_MIDDLE_UP EVT_RIGHT_UP EVT_MOUSEWHEEL);
+use Wx::Event qw(EVT_KEY_DOWN EVT_KEY_UP EVT_PAINT EVT_CLOSE EVT_LEFT_DOWN EVT_BUTTON EVT_LEFT_UP EVT_MIDDLE_UP EVT_RIGHT_UP EVT_MOUSEWHEEL);
 
 use base 'Wx::Frame';
 
@@ -316,7 +316,7 @@ sub OnClose {
 package MyKeyboardWindow;
 
 use Wx qw(wxDefaultSize wxDefaultValidator wxID_ANY);
-use Wx::Event qw(EVT_KEY_DOWN EVT_CLOSE EVT_LEFT_DOWN EVT_BUTTON);
+use Wx::Event qw(EVT_KEY_DOWN EVT_KEY_UP EVT_CLOSE EVT_LEFT_DOWN EVT_BUTTON);
 
 use base 'Wx::Frame';
 sub colour_from_setting {
@@ -423,7 +423,7 @@ sub new {
     }
     EVT_CLOSE( $this, \&OnClose );
     foreach(@main::found_keycodes) {
-	main::process_code($_);
+	main::process_code($_, '');
     }
     $this->Show;
     $this->ShowFullScreen(1);
@@ -444,11 +444,22 @@ use strict;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 
-use Wx::Event qw(EVT_KEY_DOWN EVT_CLOSE EVT_LEFT_DOWN);
+use Wx::Event qw(EVT_KEY_DOWN EVT_KEY_UP EVT_CLOSE EVT_LEFT_DOWN);
 
 use XML::Mini::Document;
 
 #$XML::Mini::AutoEscapeEntities = 0;
+
+sub keyup {
+    my($this, $event) = @_;
+    unless($main::windowtype eq "tester") {
+	$event->Skip();
+	return;
+    }
+    my $code = $event->GetRawKeyCode();
+    process_code($code, '');
+    push @main::found_keycodes, $code unless(grep {$_ == $code} @main::found_keycodes);
+}
 
 sub keydown {
     my($this, $event) = @_;
@@ -457,15 +468,15 @@ sub keydown {
 	return;
     }
     my $code = $event->GetRawKeyCode();
-    process_code($code);
-    push @main::found_keycodes, $code unless(grep {$_ == $code} @main::found_keycodes);
+    process_code($code, 'while_');
 }
 
 sub process_code {
     my $code = shift;
+    my $type = shift;
     if($main::buttons{$code}) {
-	$main::buttons{$code}->SetBackgroundColour(MyKeyboardWindow::colour_from_setting('pressed_color'));
-	$main::buttons{$code}->SetForegroundColour(MyKeyboardWindow::colour_from_setting('pressed_text'));
+	$main::buttons{$code}->SetBackgroundColour(MyKeyboardWindow::colour_from_setting($type . 'pressed_color'));
+	$main::buttons{$code}->SetForegroundColour(MyKeyboardWindow::colour_from_setting($type . 'pressed_text'));
     } else {
 	print "Unknown keycode: " . $code . "\n"; # TODO: remove this
     }
@@ -548,6 +559,7 @@ MyDialog::save_settings();
 our $window_type;
 my $app = Wx::SimpleApp->new;
 EVT_KEY_DOWN($app, \&main::keydown);
+EVT_KEY_UP($app, \&main::keyup);
 if((defined($ENV{'KEYBOARD_TESTER_MODE'}) && ($ENV{'KEYBOARD_TESTER_MODE'} eq 'mouse')) || ((scalar(@ARGV) > 0) && ($ARGV[0] eq '--mouse'))) {
     MyMouseWindow->start();
 } else {

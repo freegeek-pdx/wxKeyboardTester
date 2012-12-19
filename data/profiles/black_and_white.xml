@@ -5,6 +5,11 @@
   <g>255</g>
   <b>255</b>
 </setting>
+<setting name="while_pressed_color">
+  <r>126</r>
+  <g>126</g>
+  <b>126</b>
+</setting>
 <setting name="pressed_color">
   <r>0</r>
   <g>0</g>
@@ -19,6 +24,11 @@
   <r>255</r>
   <g>255</g>
   <b>255</b>
+</setting>
+<setting name="while_pressed_text">
+  <r>0</r>
+  <g>0</g>
+  <b>0</b>
 </setting>
 <setting name="height">
   35
